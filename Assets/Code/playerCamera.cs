@@ -2,34 +2,30 @@ using UnityEngine;
 
 public class playerCamera : MonoBehaviour
 {
-    private float X;
-    private float Y;
+    public Transform player;
+    public float mouseSensitivity = 2f;
 
-    public float Sensitivity;
-    public Transform playerBody;
-   
+    float cameraVerticalRotation = 0f;
 
-    void Awake()
+    private void Start()
     {
-        Vector3 euler = transform.rotation.eulerAngles;
-        X = euler.x;
-        Y = euler.y;
+        // lock and hide cursor
     }
 
-    void Update()
+    private void Update()
     {
-        const float MIN_X = 0.0f;
-        const float MAX_X = 360.0f;
-        const float MIN_Y = -90.0f;
-        const float MAX_Y = 90.0f;
+        // collect mouse input
+        float inputX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float inputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        X += Input.GetAxis("Mouse X") * (Sensitivity * Time.deltaTime);
-        if (X < MIN_X) X += MAX_X;
-        else if (X > MAX_X) X -= MAX_X;
-        Y -= Input.GetAxis("Mouse Y") * (Sensitivity * Time.deltaTime);
-        if (Y < MIN_Y) Y = MIN_Y;
-        else if (Y > MAX_Y) Y = MAX_Y;
+        // rotate the camera around its local X axis
 
-        transform.rotation = Quaternion.Euler(Y, X, 0.0f);
+        cameraVerticalRotation -= inputY;
+        cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -90f, 90f);
+
+        transform.localEulerAngles = Vector3.right * cameraVerticalRotation;
+
+        // rotate the player object and the camera around its y axis
+        player.Rotate(Vector3.up * inputX);
     }
 }
