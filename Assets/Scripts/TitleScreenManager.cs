@@ -6,7 +6,7 @@ public class TitleScreenManager : MonoBehaviour
 {
 
     [Header("UI")]
-    public RectTransform logo; // UI Logo
+    public RectTransform logo; 
     public GameObject pressAnyButtonText;
     public GameObject mainMenuPanel;
 
@@ -20,7 +20,7 @@ public class TitleScreenManager : MonoBehaviour
     public Vector2 logoTargetPosition = new Vector2(-600f, 0f);
 
     [Header("Camera Movement")]
-    public CameraMover cameraMover; // Drag your camera here
+    public CameraMover cameraMover; 
 
     private bool hasPressedStart = false;
     private bool isLogoMoving = false;
@@ -43,7 +43,7 @@ public class TitleScreenManager : MonoBehaviour
 
             if (cameraMover != null)
             {
-                cameraMover.StartCameraMove(); // 🔽 Start camera drop
+                cameraMover.StartCameraMove(); 
             }
         }
 

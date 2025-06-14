@@ -3,8 +3,8 @@ using UnityEngine;
 public class CameraMover : MonoBehaviour
 {
     [Header("Target Y Position")]
-    public float targetY = 5f;         // Final Y position (bottom view)
-    public float moveSpeed = 5f;       // Movement speed
+    public float targetY = 5f;         
+    public float moveSpeed = 5f;       
 
     private bool shouldMove = false;
 

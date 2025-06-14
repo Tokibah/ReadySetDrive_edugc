@@ -19,7 +19,7 @@ public class CapsuleVanLooper : MonoBehaviour
     {
         transform.Translate(Vector3.left * speed * Time.deltaTime);
 
-        // Optional: bobbing animation
+        
         float bob = Mathf.Sin(Time.time * 2f) * 0.2f;
         transform.position = new Vector3(transform.position.x, baseY + bob, startPosition.z);
 
