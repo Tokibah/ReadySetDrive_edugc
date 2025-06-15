@@ -11,6 +11,10 @@ public class TitleScreenAnimation : MonoBehaviour
     public Transform[] railObjects;
     public float railRotationSpeed = 100f;
 
+    [Header("Tyres Rotation")]
+    public Transform[] tyreObject;
+    public float tyreRotationSpeed = 200f;
+
     void Update()
     {
         
@@ -19,7 +23,14 @@ public class TitleScreenAnimation : MonoBehaviour
             roadObject.Rotate(Vector3.down * roadRotationSpeed * Time.deltaTime, Space.Self);
         }
 
-        
+        foreach (Transform tyre in tyreObject)
+        {
+            if (tyre != null)
+            {
+                tyre.Rotate(Vector3.forward * tyreRotationSpeed * Time.deltaTime, Space.Self);
+            }
+        }
+
         foreach (Transform rail in railObjects)
         {
             if (rail != null)
