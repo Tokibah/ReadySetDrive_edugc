@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.Playables;
 using System.Collections; // Still good to keep in case you need other coroutines
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -92,6 +93,7 @@ public class DialogueManager : MonoBehaviour
                 // If this was the last dialogue line, and no more signals are coming,
                 // ensure the dialogue canvas hides and the timeline fully plays out.
                 EndDialogue(); // Call EndDialogue if all lines are done
+                startGame(); // moves to the next scene
             }
         }
     }
@@ -125,4 +127,10 @@ public class DialogueManager : MonoBehaviour
         
         // --- Optional: Add code here to disable player movement at the beginning of the cutscene ---
     }
+
+    public void startGame()
+    {
+        SceneManager.LoadSceneAsync(2);
+    }
+
 }

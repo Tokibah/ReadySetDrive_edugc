@@ -6580,7 +6580,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1608184067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db83f936020159469303ca782c586e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 956df89472cc39a468d552ee7c616802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2593a674c111ff3418ddde3265fd2509
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 15600000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211850
+  packageName: Realistic Fences Pack
+  packageVersion: 1.0
+  assetPath: Assets/FencesPack/Terrain.asset
+  uploadId: 482782
