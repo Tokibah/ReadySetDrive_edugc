@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9e0a68711bb064a4993cafb29bd99fdf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 249507
+  packageName: Low Poly Basic Items Pack - Household Items
+  packageVersion: 1.0
+  assetPath: Assets/Custom Packages/Kabungus/HouseholdItems/Scripts/PlayerMovement.cs
+  uploadId: 582139

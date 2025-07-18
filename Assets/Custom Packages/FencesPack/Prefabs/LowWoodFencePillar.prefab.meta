@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cb250c17d2dab5c4194bd05e567a5dfe
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211850
+  packageName: Realistic Fences Pack
+  packageVersion: 1.0
+  assetPath: Assets/FencesPack/Prefabs/LowWoodFencePillar.prefab
+  uploadId: 482782

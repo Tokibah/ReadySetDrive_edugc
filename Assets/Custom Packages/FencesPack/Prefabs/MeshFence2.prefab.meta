@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b2a7b1a2cce3526488810c81a1e3c182
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 211850
+  packageName: Realistic Fences Pack
+  packageVersion: 1.0
+  assetPath: Assets/FencesPack/Prefabs/MeshFence2.prefab
+  uploadId: 482782
