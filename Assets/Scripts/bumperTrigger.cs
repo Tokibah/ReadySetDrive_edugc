@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 
 public class bumperTrigger : MonoBehaviour
@@ -10,29 +12,45 @@ public class bumperTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (recorded) return;
-
-        if (rb != null)
+        if (CompareTag("BumperLarge"))
         {
-            float speed = rb.linearVelocity.magnitude;
-            if (speed > speedLimit)
+            if (recorded) return;
+
+            if (rb != null)
             {
-                Debug.Log("Approached the bumper too fast!");
-                PointCounter.instance.ruleBroken();
+                float speed = rb.linearVelocity.magnitude;
+                if (speed < speedLimit)
+                {
+                    Debug.Log("uhhh speed rendah?");
+                    PointCounter.instance.ruleFollowed();
+
+                }
+                else
+                {
+                    Debug.Log("Approached the bumper too fast!");
+                    PointCounter.instance.ruleBroken();
+                }
+
+                recorded = true;
+                StartCoroutine(resetTime());
+
             }
             else
             {
-                Debug.Log("uhhh speed rendah?");
-                PointCounter.instance.ruleFollowed();
+                Debug.Log("uhhh ");
             }
-
-            recorded = true;
-
         }
         else
         {
-            Debug.Log("uhhh ");
+            Debug.Log("small bumper hit.");
         }
+        
+    }
+
+    IEnumerator resetTime()
+    {
+        yield return new WaitForSeconds(10f);
+        recorded = false;
     }
 
 }

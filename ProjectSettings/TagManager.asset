@@ -7,6 +7,9 @@ TagManager:
   - NPC
   - LeftTire
   - RightTire
+  - BumperLarge
+  - BumperSmall
+  - DespawnZone
   layers:
   - Default
   - TransparentFX

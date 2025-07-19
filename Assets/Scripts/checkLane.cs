@@ -5,6 +5,7 @@ public class checkLane : MonoBehaviour
     public Transform roundaboutCenter; // assign in Inspector
     public float allowedAngle = 90f; // threshold before considering wrong direction
     private bool alreadyTriggered = false;
+    private bool rightWay = true,wrongWay = false;
     public Rigidbody rb;
 
     private void OnTriggerStay(Collider other)
@@ -24,9 +25,16 @@ public class checkLane : MonoBehaviour
 
             if (angle > allowedAngle)
             {
-                Debug.Log("WRONG WAY IN ROUNDABOUT! -15 points");
+                wrongWay = true;
+                Debug.Log("WRONG WAY IN ROUNDABOUT!");
+                PointCounter.instance.ruleBroken();
                 alreadyTriggered = true;
-                Invoke(nameof(ResetTrigger), 2f);
+
+                
+            }
+            else
+            {
+                rightWay = true;
             }
         }
         else
@@ -35,8 +43,14 @@ public class checkLane : MonoBehaviour
         }
     }
 
-    private void ResetTrigger()
+    private void OnTriggerExit(Collider other)
     {
-        alreadyTriggered = false;
+        if (rightWay && !wrongWay)
+        {
+            Debug.Log("Car followed the right roundabout way.");
+            PointCounter.instance.ruleFollowed();
+        }
     }
+
+  
 }

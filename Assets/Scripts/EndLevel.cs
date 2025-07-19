@@ -11,22 +11,26 @@ public class EndLevel : MonoBehaviour
     {
         
 
-        if (currentLvl.name == "lvl1")
+        if (currentLvl.name == "lvl3")
         {
-            levelManager.GoToNextLevel();
-        }
-        else
-        {
-            Time.timeScale = 0;
-            PointCounter.instance.levelSummary();
+            PointCounter.instance.ruleFollowed();
         }
 
-        if (nextLvl.activeSelf == false)
+        if (currentLvl.name == "lvl4")
         {
-            nextLvl.SetActive(true);
-            currentLvl.SetActive(false);
-
+            PointCounter.instance.ruleFollowed();
         }
+
+        Time.timeScale = 0;
+        PointCounter.instance.levelSummary();
+        
+
+        //if (nextLvl.activeSelf == false)
+        //{
+        //    nextLvl.SetActive(true);
+        //    currentLvl.SetActive(false);
+
+        //}
 
 
     }
