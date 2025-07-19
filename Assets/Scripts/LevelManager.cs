@@ -29,4 +29,16 @@ public class LevelManager : MonoBehaviour
             // Show victory UI or loop/restart as needed
         }
     }
+
+    public void RestartLevel()
+    {
+        Vector3 spawnPosition = levelSpawnPoints[currentLevel].position;
+        player.rotation = levelSpawnPoints[currentLevel].rotation;
+        player.position = spawnPosition;
+
+        Time.timeScale = 1;
+        PointCounter.instance.resetPoint();
+        summaryUI.SetActive(false);
+        Debug.Log("Player restarted the level!");
+    }
 }
