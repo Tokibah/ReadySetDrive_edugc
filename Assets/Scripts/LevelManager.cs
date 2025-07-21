@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
     public Transform[] levelSpawnPoints;
     public GameObject summaryUI;
 
-    private int currentLevel = 0;
+    private int currentLevel = 0; 
 
     public void GoToNextLevel()
     {
@@ -19,8 +19,8 @@ public class LevelManager : MonoBehaviour
             player.position = spawnPosition;
 
             Time.timeScale = 1;
-            summaryUI.SetActive(false);
             PointCounter.instance.resetPoint();
+            summaryUI.SetActive(false);
             Debug.Log("Player moved to Level " + (currentLevel + 1));
         }
         else
@@ -28,5 +28,17 @@ public class LevelManager : MonoBehaviour
             Debug.Log("No more levels!");
             // Show victory UI or loop/restart as needed
         }
+    }
+
+    public void RestartLevel()
+    {
+        Vector3 spawnPosition = levelSpawnPoints[currentLevel].position;
+        player.rotation = levelSpawnPoints[currentLevel].rotation;
+        player.position = spawnPosition;
+
+        Time.timeScale = 1;
+        PointCounter.instance.resetPoint();
+        summaryUI.SetActive(false);
+        Debug.Log("Player restarted the level!");
     }
 }

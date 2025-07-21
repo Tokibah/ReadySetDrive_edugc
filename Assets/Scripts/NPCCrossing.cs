@@ -10,6 +10,8 @@ public class NPCCrossing : MonoBehaviour
     private bool isCrossing = false;
     private Vector3 initialPosition;
 
+    public GameObject summaryUI;
+
     private void Start()
     {
         initialPosition = transform.position;
@@ -55,19 +57,11 @@ public class NPCCrossing : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ACCIDENT! Player hit the NPC!");
-            // Implement your accident logic here:
-            // For example, trigger a Game Over screen, play an explosion, etc.
-
-            // Example: Freeze time and disable both cars (for demonstration)
-            Time.timeScale = 0f; // Pauses the game
-            Debug.Log("Game Paused due to accident.");
-
-            // Optionally disable AI car movement after collision
-            this.enabled = false; // Disable this script
-
-            // You might want to show a Game Over UI here
-            // FindObjectOfType<ScoreManager>()?.GameOver(); // If you have a ScoreManager from previous example
+            isCrossing = true;
+            Time.timeScale = 0f;
+            PointCounter.instance.accident();
+            PointCounter.instance.levelSummary();
+            
         }
     }
 }

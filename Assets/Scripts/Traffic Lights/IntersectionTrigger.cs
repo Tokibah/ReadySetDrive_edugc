@@ -26,10 +26,12 @@ public class IntersectionTrigger : MonoBehaviour
             if (trafficLightNorth.currentState == TrafficLightControllerNorth.LightState.Red)
             {
                 Debug.Log("Player crossing road during red light!");
+                PointCounter.instance.ruleBroken();
             }
             else
             {
                 Debug.Log("Good to go.");
+                PointCounter.instance.ruleFollowed();
             }
         }
         else if (angle < 90)
@@ -37,10 +39,14 @@ public class IntersectionTrigger : MonoBehaviour
             if (trafficLightSouth.currentState == TrafficLightControllerSouth.LightState.Red)
             {
                 Debug.Log("Player crossing road during red light!");
+                PointCounter.instance.ruleBroken();
+
             }
             else
             {
                 Debug.Log("Good to go.");
+                PointCounter.instance.ruleFollowed();
+
             }
         }
         else if (angle > 150 && angle < 190)
@@ -48,10 +54,14 @@ public class IntersectionTrigger : MonoBehaviour
             if (trafficLightWest.currentState == TrafficLightControllerWest.LightState.Red)
             {
                 Debug.Log("Player crossing road during red light!");
+                PointCounter.instance.ruleBroken();
+
             }
             else
             {
                 Debug.Log("Good to go.");
+                PointCounter.instance.ruleFollowed();
+
             }
         }
 

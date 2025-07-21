@@ -51,11 +51,11 @@ public class PointCounter : MonoBehaviour
             levelStatus.text = "Failed!";
             retryBtn.SetActive(true);
         }
-
-       
-
-
     }
+
+
+
+   
 
     public void ruleFollowed()
     {
@@ -75,4 +75,11 @@ public class PointCounter : MonoBehaviour
         broken = 0;
         followed = 0;
     }
+
+    public void accident()
+    {
+        rep = -50;
+    }
+
+   
 }
