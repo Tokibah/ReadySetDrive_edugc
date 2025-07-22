@@ -37,12 +37,12 @@ public class pedestrianArea : MonoBehaviour
         playerInZone = false;
         if (npcsAreCrossing)
         {
-            Debug.Log("Dangerous driving!");
+            popupController.instance.ShowPopup("Kenapa lintas macam itu sahaja? Ini kawasan sekolah, bahaya!");
             PointCounter.instance.ruleBroken();
         }
         else
         {
-            Debug.Log("All good.");
+            popupController.instance.ShowPopup("Terima kasih, pejalan kaki dapat melintas dengan selamat.");
             PointCounter.instance.ruleFollowed();
         }
 

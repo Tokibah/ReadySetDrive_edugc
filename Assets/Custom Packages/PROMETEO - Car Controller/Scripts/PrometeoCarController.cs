@@ -829,6 +829,7 @@ public class PrometeoCarController : MonoBehaviour
         if (playerSpeeding) return;
         playerSpeeding = true;
         Debug.Log("The player is speeding! Deduct reputation.");
+        popupController.instance.ShowPopup("Laju-laju nak pergi mana? Jalan ni ada had laju. Tolak reputasi!");
         PointCounter.instance.ruleBroken();
 
         // Here you would typically show a "Speeding Violation!" UI message.

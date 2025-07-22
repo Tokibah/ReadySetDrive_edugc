@@ -29,11 +29,13 @@ public class intersectionStopTrigger : MonoBehaviour
         if (!waited)
         {
             Debug.Log("Left too early, reduce reputation!");
+            popupController.instance.ShowPopup("Awak sepatutnya berhenti dahulu! Bahaya keluar macam itu!");
             PointCounter.instance.ruleBroken(); 
         }
         else
         {
             Debug.Log("Add reputation.");
+            popupController.instance.ShowPopup("Bagus, ini namanya pemanduan berhemah!");
             PointCounter.instance.ruleFollowed();
         }
     }

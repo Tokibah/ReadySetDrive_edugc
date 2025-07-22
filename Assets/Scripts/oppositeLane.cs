@@ -19,6 +19,8 @@ public class oppositeLane : MonoBehaviour
                 {
                     Debug.Log("WRONG WAY! -10 points");
                 }
+
+            popupController.instance.ShowPopup("Salah jalan ni! Ikut belah kiri jalan!");
             }
         
     }

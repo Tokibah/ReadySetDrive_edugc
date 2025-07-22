@@ -14,6 +14,7 @@ public class PointCounter : MonoBehaviour
     public GameObject summaryUI;
     string status;
     public int rep, followed, broken;
+    private int levelCompleted;
 
     public GameObject nextLevelBtn;
     public GameObject retryBtn;
@@ -43,6 +44,7 @@ public class PointCounter : MonoBehaviour
         
         if (requiredRep >= 5)
         {
+            levelCompleted++;
             levelStatus.text = "Success!";
             nextLevelBtn.SetActive(true);
         }
@@ -50,6 +52,12 @@ public class PointCounter : MonoBehaviour
         {
             levelStatus.text = "Failed!";
             retryBtn.SetActive(true);
+        }
+
+        if (levelCompleted == 4)
+        {
+            nextLevelBtn.SetActive(false);
+            retryBtn.SetActive(false);
         }
     }
 

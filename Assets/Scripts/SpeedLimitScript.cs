@@ -17,6 +17,7 @@ public class SpeedLimitScript : MonoBehaviour
         if (playerCar != null)
         {
             Debug.Log($"Player entered Speed Limit Zone! Limit: {speedLimit} units/sec. Speeding will cause consequence.");
+            popupController.instance.ShowPopup("Had laju di jalan ini ialah 90km/h. Tolong ikut had laju!");
             // Inform the CarController that it's in a speed limit zone and pass the limit
             playerCar.SetSpeedLimitZoneStatus(true, speedLimit);
             // Optional: You could show a "SPEED LIMIT X" UI overlay here
@@ -44,6 +45,7 @@ public class SpeedLimitScript : MonoBehaviour
             if (!playerCar.isPlayerSpeeding())
             {
                 Debug.Log("Player obeyed speed limit. Add reputation.");
+                popupController.instance.ShowPopup("Good job! Adding your reputation...");
                 PointCounter.instance.ruleFollowed();
             }
             }

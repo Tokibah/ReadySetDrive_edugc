@@ -57,6 +57,7 @@ public class NPCCrossing : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            popupController.instance.ShowPopup("Ada orang kena langgar! Awak gagal!");
             isCrossing = true;
             Time.timeScale = 0f;
             PointCounter.instance.accident();

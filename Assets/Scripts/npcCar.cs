@@ -10,17 +10,12 @@ public class npcCar : MonoBehaviour
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("DespawnZone"))
+       
+        if (collision.gameObject.CompareTag("Player"))
         {
-            // Option 1: Disable the car
-            gameObject.SetActive(false);
-
-        }
-
-        if (other.CompareTag("Player"))
-        {
+            popupController.instance.ShowPopup("Kereta berlanggar! Ulang sekali lagi!");
             Time.timeScale = 0f;
             PointCounter.instance.accident();
             PointCounter.instance.levelSummary();

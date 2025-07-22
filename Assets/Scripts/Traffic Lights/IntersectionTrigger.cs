@@ -26,11 +26,13 @@ public class IntersectionTrigger : MonoBehaviour
             if (trafficLightNorth.currentState == TrafficLightControllerNorth.LightState.Red)
             {
                 Debug.Log("Player crossing road during red light!");
+                popupController.instance.ShowPopup("Pemanduan berbahaya! Berhenti dahulu ketika lampu merah!");
                 PointCounter.instance.ruleBroken();
             }
             else
             {
                 Debug.Log("Good to go.");
+                popupController.instance.ShowPopup("Bagus, pemanduan yang berhemah. Tambah reputasi!");
                 PointCounter.instance.ruleFollowed();
             }
         }
@@ -39,12 +41,16 @@ public class IntersectionTrigger : MonoBehaviour
             if (trafficLightSouth.currentState == TrafficLightControllerSouth.LightState.Red)
             {
                 Debug.Log("Player crossing road during red light!");
+                popupController.instance.ShowPopup("Pemanduan berbahaya! Berhenti dahulu ketika lampu merah!");
+
                 PointCounter.instance.ruleBroken();
 
             }
             else
             {
                 Debug.Log("Good to go.");
+                popupController.instance.ShowPopup("Bagus, pemanduan yang berhemah. Tambah reputasi!");
+
                 PointCounter.instance.ruleFollowed();
 
             }
@@ -54,12 +60,16 @@ public class IntersectionTrigger : MonoBehaviour
             if (trafficLightWest.currentState == TrafficLightControllerWest.LightState.Red)
             {
                 Debug.Log("Player crossing road during red light!");
+                popupController.instance.ShowPopup("Pemanduan berbahaya! Berhenti dahulu ketika lampu merah!");
+
                 PointCounter.instance.ruleBroken();
 
             }
             else
             {
                 Debug.Log("Good to go.");
+                popupController.instance.ShowPopup("Bagus, pemanduan yang berhemah. Tambah reputasi!");
+
                 PointCounter.instance.ruleFollowed();
 
             }

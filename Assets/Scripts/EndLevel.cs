@@ -23,15 +23,5 @@ public class EndLevel : MonoBehaviour
 
         Time.timeScale = 0;
         PointCounter.instance.levelSummary();
-        
-
-        //if (nextLvl.activeSelf == false)
-        //{
-        //    nextLvl.SetActive(true);
-        //    currentLvl.SetActive(false);
-
-        //}
-
-
     }
 }

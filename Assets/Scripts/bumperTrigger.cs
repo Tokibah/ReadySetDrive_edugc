@@ -22,12 +22,14 @@ public class bumperTrigger : MonoBehaviour
                 if (speed < speedLimit)
                 {
                     Debug.Log("uhhh speed rendah?");
+                    popupController.instance.ShowPopup("Bagus, apabila di bonggol perlu perlahankan kenderaan. Tambah reputasi!");
                     PointCounter.instance.ruleFollowed();
 
                 }
                 else
                 {
                     Debug.Log("Approached the bumper too fast!");
+                    popupController.instance.ShowPopup("Jangan bawa laju di bonggol! Tolak reputasi!");
                     PointCounter.instance.ruleBroken();
                 }
 
