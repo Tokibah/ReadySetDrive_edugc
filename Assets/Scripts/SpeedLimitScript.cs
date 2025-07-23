@@ -45,7 +45,6 @@ public class SpeedLimitScript : MonoBehaviour
             if (!playerCar.isPlayerSpeeding())
             {
                 Debug.Log("Player obeyed speed limit. Add reputation.");
-                popupController.instance.ShowPopup("Good job! Adding your reputation...");
                 PointCounter.instance.ruleFollowed();
             }
             }

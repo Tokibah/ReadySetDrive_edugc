@@ -42,7 +42,6 @@ public class pedestrianArea : MonoBehaviour
         }
         else
         {
-            popupController.instance.ShowPopup("Terima kasih, pejalan kaki dapat melintas dengan selamat.");
             PointCounter.instance.ruleFollowed();
         }
 
