@@ -35,7 +35,6 @@ public class intersectionStopTrigger : MonoBehaviour
         else
         {
             Debug.Log("Add reputation.");
-            popupController.instance.ShowPopup("Bagus, ini namanya pemanduan berhemah!");
             PointCounter.instance.ruleFollowed();
         }
     }
