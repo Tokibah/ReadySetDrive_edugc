@@ -12,6 +12,8 @@ TagManager:
   - DespawnZone
   - HouseAreaTrigger
   - RoadAreaTrigger
+  - Inspectable
+  - RecorderCamera
   layers:
   - Default
   - TransparentFX
