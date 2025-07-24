@@ -23,8 +23,7 @@ public class popupController : MonoBehaviour
 
     IEnumerator ShowPopupCoroutine(string message, float duration)
     {
-        // Pause the game
-        Time.timeScale = 0f;
+
 
         // Show the popup
         popupPanel.SetActive(true);
@@ -40,7 +39,6 @@ public class popupController : MonoBehaviour
         pauseBtn.SetActive(true);
         speedText.SetActive(true);
 
-        // Resume the game
-        Time.timeScale = 1f;
+
     }
 }

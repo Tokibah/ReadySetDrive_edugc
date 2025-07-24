@@ -37,6 +37,8 @@ public class StartLevel : MonoBehaviour
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
 
+
+
         }
     }
 
@@ -63,6 +65,7 @@ public class StartLevel : MonoBehaviour
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
 
+
         }
     }
 
@@ -87,6 +90,7 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
+
 
         }
     }
@@ -115,6 +119,7 @@ public class StartLevel : MonoBehaviour
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
 
+
         }
     }
 
@@ -141,6 +146,7 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
+
 
         }
     }

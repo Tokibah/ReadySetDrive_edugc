@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
         if (currentLevel < levelSpawnPoints.Length)
         {
             currentLevel++;
+            CheckpointArrow.instance.updateArrow(currentLevel);
             Vector3 spawnPosition = levelSpawnPoints[currentLevel].position;
             player.rotation = levelSpawnPoints[currentLevel].rotation;
             player.position = spawnPosition;
