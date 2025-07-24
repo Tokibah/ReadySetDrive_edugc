@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1519673824945902064}
   - component: {fileID: 3670996659754296634}
   - component: {fileID: 781163898469568438}
+  - component: {fileID: 6021790937135928718}
   m_Layer: 0
   m_Name: Tree 3
   m_TagString: Untagged
@@ -111,3 +112,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6206187328463476989, guid: 2891e19cb0a55b547a49361777495da3, type: 3}
+--- !u!205 &6021790937135928718
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022755871087346927}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3670996659754296634}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3670996659754296634}
+  - screenRelativeHeight: 0.1
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3670996659754296634}
+  m_Enabled: 1
