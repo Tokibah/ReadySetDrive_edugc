@@ -1,4 +1,5 @@
 using UnityEngine;
+using static CheckpointArrow;
 
 public class EndLevel : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EndLevel : MonoBehaviour
     public GameObject currentLvl;
     private void OnCollisionEnter(Collision collision)
     {
+
         
 
         if (currentLvl.name == "lvl3")

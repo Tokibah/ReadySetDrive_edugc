@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
         if (currentLevel < levelSpawnPoints.Length)
         {
             currentLevel++;
-            CheckpointArrow.instance.updateArrow(currentLevel);
             Vector3 spawnPosition = levelSpawnPoints[currentLevel].position;
             player.rotation = levelSpawnPoints[currentLevel].rotation;
             player.position = spawnPosition;
@@ -33,6 +32,7 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 1;
             PointCounter.instance.resetPoint();
             summaryUI.SetActive(false);
+            CheckpointArrow.instance.updateArrow(currentLevel+1);
             Debug.Log("Player moved to Level " + (currentLevel + 1));
         }
         

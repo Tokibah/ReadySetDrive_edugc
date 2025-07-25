@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PointCounter : MonoBehaviour
 {
@@ -15,11 +16,13 @@ public class PointCounter : MonoBehaviour
     string status;
     public int rep, followed, broken;
     private int levelCompleted;
+    public Text displayCount;
 
     public GameObject nextLevelBtn;
     public GameObject retryBtn;
     public GameObject exitBtn;
 
+    int requiredRep = 0;
   
 
 
@@ -33,7 +36,7 @@ public class PointCounter : MonoBehaviour
     }
     public void levelSummary()
     {
-        int requiredRep = rep * 5;
+        
         nextLevelBtn.SetActive(false);
         retryBtn.SetActive(false);
         summaryUI.SetActive(true);
@@ -89,5 +92,11 @@ public class PointCounter : MonoBehaviour
         rep = -50;
     }
 
-   
+    private void Update()
+    {
+        requiredRep = rep * 5;
+        displayCount.text = requiredRep.ToString();
+    }
+
+
 }

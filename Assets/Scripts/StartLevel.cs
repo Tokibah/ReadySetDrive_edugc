@@ -20,6 +20,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
+            CheckpointArrow.instance.updateArrow(0) ;
             LevelManager.instance.lvl1();
 
 
@@ -48,6 +49,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
+            CheckpointArrow.instance.updateArrow(1);
             LevelManager.instance.lvl2();
 
 
@@ -75,6 +77,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
+            CheckpointArrow.instance.updateArrow(2);
             LevelManager.instance.lvl3();
 
             // Get a random point inside the spawn zone's bounds
@@ -101,6 +104,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
+            CheckpointArrow.instance.updateArrow(3);
             LevelManager.instance.lvl4();
 
 
