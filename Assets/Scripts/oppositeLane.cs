@@ -18,7 +18,7 @@ public class oppositeLane : MonoBehaviour
                 if (angle > angleTolerance)
                 {
                     Debug.Log("WRONG WAY! -10 points");
-                popupController.instance.ShowPopup("Salah jalan ni! Ikut belah kiri jalan!");
+                    popupController.instance.ShowPopup("Salah jalan ni! Ikut belah kiri jalan!");
 
             }
 

@@ -56,20 +56,11 @@ public class WrongWayCarMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ACCIDENT! WrongWayCar hit player!");
-            // Implement your accident logic here:
-            // For example, trigger a Game Over screen, play an explosion, etc.
+            popupController.instance.ShowPopup("Kereta berlanggar! Ulang sekali lagi!");
+            Time.timeScale = 0f;
+            PointCounter.instance.accident();
+            PointCounter.instance.levelSummary();
 
-            // Example: Freeze time and disable both cars (for demonstration)
-            Time.timeScale = 0f; // Pauses the game
-            Debug.Log("Game Paused due to accident.");
-
-            // Optionally disable AI car movement after collision
-            currentMoveSpeed = 0f;
-            this.enabled = false; // Disable this script
-
-            // You might want to show a Game Over UI here
-            // FindObjectOfType<ScoreManager>()?.GameOver(); // If you have a ScoreManager from previous example
         }
     }
 }

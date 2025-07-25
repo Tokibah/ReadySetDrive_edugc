@@ -1,12 +1,12 @@
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StartLevel : MonoBehaviour
 {
     public Transform player;            // Drag your player prefab or object here
     public Collider[] spawnZoneCollider;  // Drag the spawn zone collider here
     public GameObject levelUI;
-
 
     void Start()
     {
@@ -134,6 +134,11 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             LevelManager.instance.lvl5();
+            GameObject[] borders = GameObject.FindGameObjectsWithTag("WorldBorder");
+            foreach (GameObject border in borders)
+            {
+                border.SetActive(false);
+            }
 
 
             // Get a random point inside the spawn zone's bounds
@@ -150,7 +155,6 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
-
 
         }
     }

@@ -14,6 +14,8 @@ TagManager:
   - RoadAreaTrigger
   - Inspectable
   - RecorderCamera
+  - Cones
+  - WorldBorder
   layers:
   - Default
   - TransparentFX

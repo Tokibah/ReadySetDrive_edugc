@@ -23,7 +23,10 @@ public class EndLevel : MonoBehaviour
             PointCounter.instance.ruleFollowed();
         }
 
+
         Time.timeScale = 0;
         PointCounter.instance.levelSummary();
     }
+
+    
 }

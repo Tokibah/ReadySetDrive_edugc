@@ -29,6 +29,7 @@ public class bumperTrigger : MonoBehaviour
                 {
                     Debug.Log("Approached the bumper too fast!");
                     popupController.instance.ShowPopup("Jangan bawa laju-laju di bonggol! Tolak reputasi!");
+                    CarHealth.instance.minusHealth(10);
                     PointCounter.instance.ruleBroken();
                 }
 
@@ -44,6 +45,7 @@ public class bumperTrigger : MonoBehaviour
         else
         {
             Debug.Log("small bumper hit.");
+            CarHealth.instance.minusHealth(2);
         }
         
     }

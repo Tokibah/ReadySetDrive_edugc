@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
             Time.timeScale = 1;
             PointCounter.instance.resetPoint();
             summaryUI.SetActive(false);
-            CheckpointArrow.instance.updateArrow(currentLevel+1);
+            CheckpointArrow.instance.updateArrow(currentLevel);
             Debug.Log("Player moved to Level " + (currentLevel + 1));
         }
         
