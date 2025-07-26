@@ -34,6 +34,10 @@ public class LevelManager : MonoBehaviour
             PointCounter.instance.resetPoint();
             summaryUI.SetActive(false);
             CheckpointArrow.instance.updateArrow(currentLevel);
+            if (currentLevel == 4)
+            {
+
+            }
             yesPause();
             Debug.Log("Player moved to Level " + (currentLevel + 1));
         }

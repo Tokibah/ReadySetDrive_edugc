@@ -15,6 +15,11 @@ public class CheckpointArrow : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        transform.GetComponentInChildren<Renderer>().enabled = false;
+    }
+
     // Update is called once per frame
     private void Update()
     {
