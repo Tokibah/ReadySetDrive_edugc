@@ -11,7 +11,8 @@ public class LevelManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject pauseBtn;
 
-
+    private bool isPaused;
+    private bool allowPause = true;
     private int currentLevel = 0;
 
     private void Awake()
@@ -33,6 +34,7 @@ public class LevelManager : MonoBehaviour
             PointCounter.instance.resetPoint();
             summaryUI.SetActive(false);
             CheckpointArrow.instance.updateArrow(currentLevel);
+            yesPause();
             Debug.Log("Player moved to Level " + (currentLevel + 1));
         }
         
@@ -47,6 +49,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;
         PointCounter.instance.resetPoint();
         summaryUI.SetActive(false);
+        yesPause();
         Debug.Log("Player restarted the level!");
     }
 
@@ -61,6 +64,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
         pauseBtn.SetActive(false);
+        isPaused = true;
     }
 
     public void resumeGame()
@@ -68,6 +72,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
         pauseBtn.SetActive(true);
+        isPaused = false;
     }
 
     public void lvl1()
@@ -93,5 +98,30 @@ public class LevelManager : MonoBehaviour
     public void lvl5()
     {
         currentLevel = 4;
+    }
+
+    public void noPause()
+    {
+        allowPause = false;
+    }
+
+    public void yesPause()
+    {
+        allowPause = true;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (allowPause && isPaused)
+            {
+                resumeGame();
+            }
+            else
+            {
+                pauseGame();
+            }
+        }
     }
 }

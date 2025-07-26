@@ -11,7 +11,9 @@ public class StartLevel : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
         levelUI.SetActive(true);
+        LevelManager.instance.noPause();
     }
 
     public void level1()
@@ -21,6 +23,7 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             CheckpointArrow.instance.updateArrow(0) ;
+            LevelManager.instance.yesPause();
             LevelManager.instance.lvl1();
 
 
@@ -50,6 +53,7 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             CheckpointArrow.instance.updateArrow(1);
+            LevelManager.instance.yesPause();   
             LevelManager.instance.lvl2();
 
 
@@ -78,6 +82,7 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             CheckpointArrow.instance.updateArrow(2);
+            LevelManager.instance.yesPause();
             LevelManager.instance.lvl3();
 
             // Get a random point inside the spawn zone's bounds
@@ -105,6 +110,7 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             CheckpointArrow.instance.updateArrow(3);
+            LevelManager.instance.yesPause();
             LevelManager.instance.lvl4();
 
 
@@ -134,6 +140,7 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             LevelManager.instance.lvl5();
+            LevelManager.instance.yesPause();
             GameObject[] borders = GameObject.FindGameObjectsWithTag("WorldBorder");
             foreach (GameObject border in borders)
             {

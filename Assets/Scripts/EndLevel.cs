@@ -25,6 +25,7 @@ public class EndLevel : MonoBehaviour
 
 
         Time.timeScale = 0;
+        LevelManager.instance.noPause();
         PointCounter.instance.levelSummary();
     }
 
