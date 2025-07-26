@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
 
             Time.timeScale = 1;
             PointCounter.instance.resetPoint();
+            PointCounter.instance.nextLevelBtn.SetActive(false);
             summaryUI.SetActive(false);
             CheckpointArrow.instance.updateArrow(currentLevel);
             if (currentLevel == 4)
@@ -52,6 +53,7 @@ public class LevelManager : MonoBehaviour
 
         Time.timeScale = 1;
         PointCounter.instance.resetPoint();
+        PointCounter.instance.retryBtn.SetActive(false);
         summaryUI.SetActive(false);
         yesPause();
         Debug.Log("Player restarted the level!");

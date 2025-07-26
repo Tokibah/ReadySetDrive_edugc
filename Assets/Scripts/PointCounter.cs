@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class PointCounter : MonoBehaviour
 {
@@ -17,12 +18,13 @@ public class PointCounter : MonoBehaviour
     public int rep, followed, broken;
     private int levelCompleted;
     public Text displayCount;
+    public Text requiredRep;
 
     public GameObject nextLevelBtn;
     public GameObject retryBtn;
     public GameObject exitBtn;
 
-    int requiredRep = 0;
+    public int collectedRep = 0;
   
 
 
@@ -34,34 +36,37 @@ public class PointCounter : MonoBehaviour
     {
         instance = this;
     }
-    public void levelSummary()
+
+    private void Start()
     {
-        
         nextLevelBtn.SetActive(false);
         retryBtn.SetActive(false);
+    }
+    public void levelSummary()
+    {
         summaryUI.SetActive(true);
-        reputation.text = "Reputation: " + requiredRep.ToString();
+        reputation.text = "Reputation: " + collectedRep.ToString();
         rulesFollowed.text = "Rules Followed: " + followed.ToString();
         rulesBroken.text = "Rules Broken: " + broken.ToString();
+    }
 
-        
-        if (requiredRep >= 5)
-        {
-            levelCompleted++;
-            levelStatus.text = "Success!";
-            nextLevelBtn.SetActive(true);
-        }
-        else
-        {
-            levelStatus.text = "Failed!";
-            retryBtn.SetActive(true);
-        }
+    public void levelSuccess()
+    {
+        levelCompleted++;
+        levelStatus.text = "Success!";
+        nextLevelBtn.SetActive(true);
 
-        if (levelCompleted == 4)
-        {
-            nextLevelBtn.SetActive(false);
-            retryBtn.SetActive(false);
-        }
+        //if (levelCompleted == 4)
+        //{
+        //    nextLevelBtn.SetActive(false);
+        //    retryBtn.SetActive(false);
+        //}
+    }
+
+    public void levelFailed()
+    {
+        levelStatus.text = "Failed!";
+        retryBtn.SetActive(true);
     }
 
 
@@ -90,12 +95,14 @@ public class PointCounter : MonoBehaviour
     public void accident()
     {
         rep = -50;
+        retryBtn.SetActive(true);
     }
 
     private void Update()
     {
-        requiredRep = rep * 5;
-        displayCount.text = requiredRep.ToString();
+        collectedRep = rep * 5;
+        requiredRep.text = EndLevel.instance.requiredScore.ToString() ;
+        displayCount.text = collectedRep.ToString();
     }
 
 

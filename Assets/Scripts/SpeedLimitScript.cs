@@ -42,7 +42,7 @@ public class SpeedLimitScript : MonoBehaviour
                 // Inform the CarController that it's no longer in a speed limit zone
                 playerCar.SetSpeedLimitZoneStatus(false);
 
-            if (!playerCar.isPlayerSpeeding())
+            if (playerCar.isPlayerSpeeding() == false)
             {
                 Debug.Log("Player obeyed speed limit. Add reputation.");
                 PointCounter.instance.ruleFollowed();
