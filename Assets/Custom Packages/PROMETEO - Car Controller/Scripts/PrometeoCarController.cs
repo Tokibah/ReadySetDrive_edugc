@@ -164,6 +164,9 @@ public class PrometeoCarController : MonoBehaviour
     private float currentZoneSpeedLimit = 0f;
     private bool playerSpeeding = false; // To prevent multiple pause calls
 
+    public float flipCheckDelay = 0f;
+    private float timer = 0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -381,6 +384,25 @@ public class PrometeoCarController : MonoBehaviour
       AnimateWheelMeshes();
 
         // custom checking
+
+        // Check if car is upside down
+        if (Vector3.Dot(transform.up, Vector3.up) < 0.1f)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= flipCheckDelay)
+            {
+                Debug.Log("? Car flipped! Player failed.");
+                // Call your game over / fail function here
+                PointCounter.instance.ruleBroken(); // Example
+                // Or: SceneManager.LoadScene("FailScene");
+            }
+        }
+        else
+        {
+            timer = 0f; // reset if car flips back upright
+        }
+
 
         // --- NEW: Speed Limit Consequence Check ---
         if (isInSpeedLimitZone && !playerSpeeding)
@@ -839,6 +861,8 @@ public class PrometeoCarController : MonoBehaviour
     {
         return playerSpeeding;
     }
+
+    
 
     
 

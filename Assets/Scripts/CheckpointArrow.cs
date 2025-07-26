@@ -32,6 +32,16 @@ public class CheckpointArrow : MonoBehaviour
         index = level;
     }
 
-    
+    public void hideArrow()
+    {
+        transform.GetComponentInChildren<Renderer>().enabled = false;
+    }
+
+    public void showArrow()
+    {
+        transform.GetComponentInChildren<Renderer>().enabled = true;
+    }
+
+
 
 }

@@ -23,11 +23,14 @@ public class checkLane : MonoBehaviour
 
             float angle = Vector3.Angle(correctTangent, playerDirection);
 
+            Debug.Log(angle);
+
             if (angle > allowedAngle)
             {
+                Debug.Log("Higher than allowed: " + angle);
+                if (alreadyTriggered) return;
                 wrongWay = true;
                 Debug.Log("WRONG WAY IN ROUNDABOUT!");
-                PointCounter.instance.ruleBroken();
                 alreadyTriggered = true;
 
                 
@@ -49,6 +52,11 @@ public class checkLane : MonoBehaviour
         {
             Debug.Log("Car followed the right roundabout way.");
             PointCounter.instance.ruleFollowed();
+        }
+        else
+        {
+            popupController.instance.ShowPopup("Jangan lawan arah dalam roundabout! Tolak reputasi!");
+            PointCounter.instance.ruleBroken();
         }
     }
 

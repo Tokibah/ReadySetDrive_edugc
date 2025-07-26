@@ -18,10 +18,7 @@ public class EndLevel : MonoBehaviour
             PointCounter.instance.ruleFollowed();
         }
 
-        if (currentLvl.name == "lvl4")
-        {
-            PointCounter.instance.ruleFollowed();
-        }
+        
 
 
         Time.timeScale = 0;

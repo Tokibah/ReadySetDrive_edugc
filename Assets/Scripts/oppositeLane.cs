@@ -5,7 +5,7 @@ public class oppositeLane : MonoBehaviour
     public float angleTolerance = 90f; // degrees
     public Rigidbody body;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         
             if (body != null)
@@ -14,9 +14,12 @@ public class oppositeLane : MonoBehaviour
                 Vector3 laneDirection = transform.right;
 
                 float angle = Vector3.Angle(laneDirection, playerDirection);
+            Debug.Log("Allowed: " + angle);
 
-                if (angle > angleTolerance)
+
+            if (angle > angleTolerance)
                 {
+                Debug.Log("Not allowed: " + angle);
                     Debug.Log("WRONG WAY! -10 points");
                     popupController.instance.ShowPopup("Salah jalan ni! Ikut belah kiri jalan!");
 

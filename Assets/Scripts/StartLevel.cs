@@ -84,6 +84,7 @@ public class StartLevel : MonoBehaviour
             CheckpointArrow.instance.updateArrow(2);
             LevelManager.instance.yesPause();
             LevelManager.instance.lvl3();
+            popupController.instance.ShowPopup("Bawa kereta ke hujung lebuh raya tanpa dilanggar. Peka dengan keadaan sekeliling!");
 
             // Get a random point inside the spawn zone's bounds
             Vector3 center = spawnZoneCollider[2].bounds.center;
@@ -140,6 +141,7 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             LevelManager.instance.lvl5();
+            CheckpointArrow.instance.hideArrow();
             LevelManager.instance.yesPause();
             GameObject[] borders = GameObject.FindGameObjectsWithTag("WorldBorder");
             foreach (GameObject border in borders)

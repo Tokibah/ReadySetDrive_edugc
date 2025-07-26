@@ -70,14 +70,14 @@ public class PointCounter : MonoBehaviour
 
     public void ruleFollowed()
     {
-        followed++;
-        rep++;
+        ++followed;
+        ++rep;
     }
 
     public void ruleBroken()
     {
-        broken++;
-        rep--;
+        ++broken;
+        --rep;
     }
 
     public void resetPoint()
