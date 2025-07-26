@@ -25,12 +25,15 @@ public class NPCCrossing : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetCrossingPoint.position, moveSpeed * Time.deltaTime);
 
             // Optional: Rotate to face the target
+            // COMMENT OUT OR REMOVE THE FOLLOWING BLOCK TO PREVENT ROTATION
+            /*
             Vector3 direction = (targetCrossingPoint.position - transform.position).normalized;
             if (direction != Vector3.zero)
             {
                 Quaternion lookRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
             }
+            */
 
             // Check if arrived at destination
             if (Vector3.Distance(transform.position, targetCrossingPoint.position) < 0.1f)
@@ -43,7 +46,7 @@ public class NPCCrossing : MonoBehaviour
 
         }
 
-        
+
     }
 
     public void StartCrossing()
@@ -62,8 +65,7 @@ public class NPCCrossing : MonoBehaviour
             Time.timeScale = 0f;
             PointCounter.instance.accident();
             PointCounter.instance.levelSummary();
-            
+
         }
     }
 }
-    
