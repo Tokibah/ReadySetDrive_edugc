@@ -24715,7 +24715,7 @@ SpriteRenderer:
   m_Size: {x: 89.369995, y: 156.81999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1013183540
@@ -34479,7 +34479,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1418519885}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: bc4f8b775e817f748a4519231ba48536, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: c65d9d77f955b034998bd7ac6978dbaf, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -36265,7 +36265,7 @@ SpriteRenderer:
   m_Size: {x: 71.259995, y: 159.51}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1495945419
@@ -47558,7 +47558,7 @@ SpriteRenderer:
   m_Size: {x: 13, y: 8.21}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1948270979
