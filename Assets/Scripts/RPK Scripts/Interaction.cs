@@ -12,38 +12,81 @@ public class Interaction : MonoBehaviour
     void Update()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        RaycastHit hit;
+        //RaycastHit hit;
+        RaycastHit[] hits = Physics.RaycastAll(ray,interactDistance, interactLayer);
+        RaycastHit closestHit = default;
+        float closestDist = Mathf.Infinity;
+        bool foundInspectable = false;
 
-        if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
+        foreach (var hit in hits)
         {
             if (hit.collider.CompareTag("Inspectable"))
             {
-                hoverTextUI.text = hit.collider.name + ", Press E to inspect."; // or custom label
-                hoverTextUI.enabled = true;
-                UI_Background.SetActive(true);
-
-              
-
-
-                if (Input.GetKeyDown(KeyCode.E))
+                float dist = Vector3.Distance(Camera.main.transform.position, hit.point);
+                if (dist < closestDist)
                 {
-                    var inspectable = hit.collider.GetComponent<IInspectable>();
-                    if (inspectable != null)
-                    {
-                        StartCoroutine(inspectable.Inspect());
-                    }
-                    else
-                    {
-                        Debug.Log("uhhh");
-                    }
-
+                    closestDist = dist; ;
+                    closestHit = hit;
+                    foundInspectable = true;
                 }
-
-                
-
-                return;
             }
         }
+
+        if (foundInspectable)
+        {
+            hoverTextUI.text = closestHit.collider.name + ", Press E to inspect.";  
+            hoverTextUI.enabled = true;
+            UI_Background.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                var inspectable = closestHit.collider.GetComponent<IInspectable>();
+                if (inspectable != null)
+                {
+                    StartCoroutine(inspectable.Inspect());
+                }
+                else
+                {
+                    Debug.Log("uhhh");
+                }
+
+            
+
+            }
+
+            return;
+        }
+
+        //if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
+        //{
+        //    if (hit.collider.CompareTag("Inspectable"))
+        //    {
+        //        hoverTextUI.text = hit.collider.name + ", Press E to inspect."; // or custom label
+        //        hoverTextUI.enabled = true;
+        //        UI_Background.SetActive(true);
+
+
+
+
+        //        if (Input.GetKeyDown(KeyCode.E))
+        //        {
+        //            var inspectable = hit.collider.GetComponent<IInspectable>();
+        //            if (inspectable != null)
+        //            {
+        //                StartCoroutine(inspectable.Inspect());
+        //            }
+        //            else
+        //            {
+        //                Debug.Log("uhhh");
+        //            }
+
+        //        }
+
+
+
+        //        return;
+        //    }
+        //}
 
         // Hide when not looking at anything interactable
         hoverTextUI.enabled = false;
