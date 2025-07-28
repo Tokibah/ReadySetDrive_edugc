@@ -57,36 +57,7 @@ public class Interaction : MonoBehaviour
             return;
         }
 
-        //if (Physics.Raycast(ray, out hit, interactDistance, interactLayer))
-        //{
-        //    if (hit.collider.CompareTag("Inspectable"))
-        //    {
-        //        hoverTextUI.text = hit.collider.name + ", Press E to inspect."; // or custom label
-        //        hoverTextUI.enabled = true;
-        //        UI_Background.SetActive(true);
-
-
-
-
-        //        if (Input.GetKeyDown(KeyCode.E))
-        //        {
-        //            var inspectable = hit.collider.GetComponent<IInspectable>();
-        //            if (inspectable != null)
-        //            {
-        //                StartCoroutine(inspectable.Inspect());
-        //            }
-        //            else
-        //            {
-        //                Debug.Log("uhhh");
-        //            }
-
-        //        }
-
-
-
-        //        return;
-        //    }
-        //}
+        
 
         // Hide when not looking at anything interactable
         hoverTextUI.enabled = false;

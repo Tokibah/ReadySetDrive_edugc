@@ -11,10 +11,24 @@ public class LightsInpect : MonoBehaviour,IInspectable
     //}
     public Text hoverTextUI; // Assign this in Inspector
     public GameObject UI_Background;
+    private bool isInspected = false;
 
 
     public IEnumerator Inspect()
     {
+
+        if (isInspected)
+        {
+            hoverTextUI.enabled = true;
+            UI_Background.SetActive(true);
+            hoverTextUI.text = "This tire is already checked.";
+
+            yield return new WaitForSeconds(2f);
+            UI_Background.SetActive(false);
+            yield break;
+        }
+
+        isInspected = true;
         Debug.Log("Inspecting Headlights...");
 
         hoverTextUI.enabled = true;
@@ -23,18 +37,14 @@ public class LightsInpect : MonoBehaviour,IInspectable
 
         yield return new WaitForSeconds(5f);
 
-        bool result = Random.value > 0.5f;
+       
 
-        if (result)
-        {
+        
             hoverTextUI.text = "Headlight in working condition.";
             Debug.Log("Headlight in working condition.");
-        }
-        else
-        {
-            hoverTextUI.text = "Headlight not in working condition.";
-            Debug.Log("Headlight is not in working condition.");
-        }
+        RpkCheck.instance.componentChecked();
+
+
 
         yield return new WaitForSeconds(2f);
         hoverTextUI.enabled = false;

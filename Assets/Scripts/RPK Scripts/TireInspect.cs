@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Transactions;
 
 public class TireInspect : MonoBehaviour, IInspectable
 {
@@ -12,9 +13,25 @@ public class TireInspect : MonoBehaviour, IInspectable
 
     public Text hoverTextUI; // Assign this in Inspector
     public GameObject UI_Background;
+    private bool isInspected = false;
 
     public IEnumerator Inspect()
     {
+
+        if (isInspected)
+        {
+            hoverTextUI.enabled = true;
+            UI_Background.SetActive(true);
+            hoverTextUI.text = "This tire is already checked.";
+
+            yield return new WaitForSeconds(2f);
+            UI_Background.SetActive(false);
+            yield break;
+        }
+
+        isInspected = true;
+
+        // perform inspection
         Debug.Log("Inspecting Tire...");
 
         hoverTextUI.enabled = true;
@@ -23,18 +40,10 @@ public class TireInspect : MonoBehaviour, IInspectable
 
         yield return new WaitForSeconds(5f);
 
-        bool result = Random.value > 0.5f;
-
-        if (result)
-        {
             hoverTextUI.text = "Tire in working condition.";
             Debug.Log("Tire in working condition.");
-        }
-        else
-        {
-            hoverTextUI.text = "Tire not in working condition.";
-            Debug.Log("Tire is not in working condition.");
-        }
+            RpkCheck.instance.componentChecked();
+
 
         yield return new WaitForSeconds(2f);
         hoverTextUI.enabled = false;
