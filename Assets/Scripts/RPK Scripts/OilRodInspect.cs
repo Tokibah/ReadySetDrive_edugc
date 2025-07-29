@@ -23,18 +23,14 @@ public class OilRodInspect : MonoBehaviour, IInspectable
 
         yield return new WaitForSeconds(5f);
 
-        bool result = Random.value > 0.5f;
+        
 
-        if (result)
-        {
+        
             hoverTextUI.text = "Oil has sufficient amount, in good condition.";
             Debug.Log("Oil has sufficient amount, in good condition.");
-        }
-        else
-        {
-            hoverTextUI.text = "Oil does not have sufficient amount, not in good condition.";
-            Debug.Log("Oil does not have sufficient amount, not in good condition.");
-        }
+        RpkCheck.instance.componentChecked();
+
+
 
         yield return new WaitForSeconds(2f);
         hoverTextUI.enabled = false;

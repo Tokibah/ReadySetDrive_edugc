@@ -22,18 +22,10 @@ public class BatteryInspect : MonoBehaviour, IInspectable
 
         yield return new WaitForSeconds(5f);
 
-        bool result = Random.value > 0.5f;
-
-        if (result)
-        {
             hoverTextUI.text = "Battery in working condition.";
             Debug.Log("Battery in working condition.");
-        }
-        else
-        {
-            hoverTextUI.text = "Battery in not in working condition.";
-            Debug.Log("Battery is not in working condition.");
-        }
+        RpkCheck.instance.componentChecked();
+       
 
         yield return new WaitForSeconds(2f);
         hoverTextUI.enabled=false;
