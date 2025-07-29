@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
             PointCounter.instance.resetPoint();
             PointCounter.instance.nextLevelBtn.SetActive(false);
             summaryUI.SetActive(false);
-            CheckpointArrow.instance.updateArrow(currentLevel);
+            //CheckpointArrow.instance.updateArrow(currentLevel);
             if (currentLevel == 4)
             {
 
@@ -120,13 +120,14 @@ public class LevelManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if (allowPause && isPaused)
-            {
-                resumeGame();
-            }
-            else
+            if (allowPause && !isPaused)
             {
                 pauseGame();
+            }
+            
+            if (isPaused)
+            {
+                resumeGame();
             }
         }
     }

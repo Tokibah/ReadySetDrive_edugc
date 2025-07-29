@@ -22,7 +22,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
-            CheckpointArrow.instance.updateArrow(0) ;
+            //CheckpointArrow.instance.updateArrow(0) ;
             LevelManager.instance.yesPause();
             LevelManager.instance.lvl1();
 
@@ -52,7 +52,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
-            CheckpointArrow.instance.updateArrow(1);
+            //CheckpointArrow.instance.updateArrow(1);
             LevelManager.instance.yesPause();   
             LevelManager.instance.lvl2();
 
@@ -81,7 +81,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
-            CheckpointArrow.instance.updateArrow(2);
+            //CheckpointArrow.instance.updateArrow(2);
             LevelManager.instance.yesPause();
             LevelManager.instance.lvl3();
             popupController.instance.ShowPopup("Bawa kereta ke hujung lebuh raya tanpa dilanggar. Peka dengan keadaan sekeliling!");
@@ -110,7 +110,7 @@ public class StartLevel : MonoBehaviour
         {
             Time.timeScale = 1;
             levelUI.SetActive(false);
-            CheckpointArrow.instance.updateArrow(3);
+            //CheckpointArrow.instance.updateArrow(3);
             LevelManager.instance.yesPause();
             LevelManager.instance.lvl4();
 
@@ -141,7 +141,7 @@ public class StartLevel : MonoBehaviour
             Time.timeScale = 1;
             levelUI.SetActive(false);
             LevelManager.instance.lvl5();
-            CheckpointArrow.instance.hideArrow();
+            //CheckpointArrow.instance.hideArrow();
             LevelManager.instance.yesPause();
             GameObject[] borders = GameObject.FindGameObjectsWithTag("WorldBorder");
             foreach (GameObject border in borders)
