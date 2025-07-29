@@ -7,25 +7,27 @@ public class oppositeLane : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
             if (body != null)
             {
                 Vector3 playerDirection = body.linearVelocity.normalized;
                 Vector3 laneDirection = transform.right;
 
                 float angle = Vector3.Angle(laneDirection, playerDirection);
-            Debug.Log("Allowed: " + angle);
+                Debug.Log("Allowed: " + angle);
 
 
-            if (angle > angleTolerance)
+                if (angle > angleTolerance)
                 {
-                Debug.Log("Not allowed: " + angle);
+                    Debug.Log("Not allowed: " + angle);
                     Debug.Log("WRONG WAY! -10 points");
                     popupController.instance.ShowPopup("Salah jalan ni! Ikut belah kiri jalan!");
+
+                }
 
             }
 
         }
-        
     }
 }

@@ -13,9 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     // gravity
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float jumpHeight = 1.5f; // This variable is not currently used in the provided script, but kept for completeness.
     [SerializeField] private Transform groundCheck; // This variable is not currently used in the provided script, but kept for completeness.
-    [SerializeField] private float groundDistance = 0.4f; // This variable is not currently used in the provided script, but kept for completeness.
     [SerializeField] private LayerMask groundMask; // This variable is not currently used in the provided script, but kept for completeness.
     private Vector3 velocity;
     private bool isGrounded; // This variable is not currently used in the provided script, but kept for completeness.

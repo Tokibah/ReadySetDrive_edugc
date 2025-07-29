@@ -16,6 +16,10 @@ TagManager:
   - RecorderCamera
   - Cones
   - WorldBorder
+  - Waypoint
+  - StopNode
+  - TrafficLightNode
+  - YieldNode
   layers:
   - Default
   - TransparentFX

@@ -69,7 +69,6 @@ public class AudioManager : MonoBehaviour
     private Coroutine birdChirpLoopCoroutine;
     // Removed: private Coroutine leafSwayingCoroutine;
     private Coroutine windSoundLoopCoroutine; // New: Coroutine for wind sound loop
-    private int currentBirdChirpClipIndex = 0; // Index for cycling through bird *clips*
     private float currentMasterVolume = 1f; // To store the current master slider value
 
     void Start()

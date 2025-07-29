@@ -7,7 +7,7 @@ public class WrongRoadTrigger : MonoBehaviour
 {
     public GameObject wrongWayCar;
     public float wrongWayCarSpeed = 10f;
-    private bool eventTriggered = false;
+    
     public float angleTolerance = 90f; // degrees
     public Rigidbody body;
     [TextArea(10, 1000)]
