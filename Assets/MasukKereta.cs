@@ -8,6 +8,7 @@ public class MasukKereta : MonoBehaviour
     public GameObject enterPromptUI;            // "Press E to enter" text
     public VideoPlayer videoPlayer;             // Drag your video player here
     public GameObject videoController;          // GameObject that holds video
+    public AudioSource audio;
 
     private bool isPlayerInZone = false;
     private bool hasEntered = false;
@@ -18,6 +19,7 @@ public class MasukKereta : MonoBehaviour
         {
             hasEntered = true;
             enterPromptUI.SetActive(false);
+            audio.Pause();
             StartCutscene();
         }
     }
