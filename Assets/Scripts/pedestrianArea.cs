@@ -15,39 +15,41 @@ public class pedestrianArea : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Check if the entering collider is the player's car
-        if (!playerInZone)
+        if (other.CompareTag("Player"))
         {
-            playerInZone = true;
-            Debug.Log("Player car entered crossing zone!");
+            // Check if the entering collider is the player's car
+            if (!playerInZone)
+            {
+                playerInZone = true;
+                Debug.Log("Player car entered crossing zone!");
 
-            
-            npcsAreCrossing = true;
-            StartCoroutine(InitiateCrossingSequence());
-        }
-        else
-        {
-            Debug.Log("uhhh");
+
+                npcsAreCrossing = true;
+                StartCoroutine(InitiateCrossingSequence());
+            }
+            else
+            {
+                Debug.Log("uhhh");
+            }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        // Reset when player leaves the zone (optional, depending on desired behavior)
-        playerInZone = false;
-        if (npcsAreCrossing)
+        if (other.CompareTag("Player"))
         {
-            popupController.instance.ShowPopup("Kenapa lintas macam itu sahaja? Ini kawasan sekolah, bahaya!");
-            PointCounter.instance.ruleBroken();
+            // Reset when player leaves the zone (optional, depending on desired behavior)
+            playerInZone = false;
+            if (npcsAreCrossing)
+            {
+                popupController.instance.ShowPopup("Kenapa lintas macam itu sahaja? Ini kawasan sekolah, bahaya!");
+                PointCounter.instance.ruleBroken();
+            }
+            else
+            {
+                PointCounter.instance.ruleFollowed();
+            }
         }
-        else
-        {
-            PointCounter.instance.ruleFollowed();
-        }
-
-
-
-        
     }
 
     IEnumerator InitiateCrossingSequence()

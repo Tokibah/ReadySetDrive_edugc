@@ -12,40 +12,43 @@ public class bumperTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (CompareTag("BumperLarge"))
+        if (other.CompareTag("Player"))
         {
-            if (recorded) return;
-
-            if (rb != null)
+            if (CompareTag("BumperLarge"))
             {
-                float speed = rb.linearVelocity.magnitude;
-                if (speed < speedLimit)
+                if (recorded) return;
+
+                if (rb != null)
                 {
-                    Debug.Log("uhhh speed rendah?");
-                    PointCounter.instance.ruleFollowed();
+                    float speed = rb.linearVelocity.magnitude;
+                    if (speed < speedLimit)
+                    {
+                        Debug.Log("uhhh speed rendah?");
+                        PointCounter.instance.ruleFollowed();
+
+                    }
+                    else
+                    {
+                        Debug.Log("Approached the bumper too fast!");
+                        popupController.instance.ShowPopup("Jangan bawa laju-laju di bonggol! Tolak reputasi!");
+                        CarHealth.instance.minusHealth(10);
+                        PointCounter.instance.ruleBroken();
+                    }
+
+                    recorded = true;
+                    StartCoroutine(resetTime());
 
                 }
                 else
                 {
-                    Debug.Log("Approached the bumper too fast!");
-                    popupController.instance.ShowPopup("Jangan bawa laju-laju di bonggol! Tolak reputasi!");
-                    CarHealth.instance.minusHealth(10);
-                    PointCounter.instance.ruleBroken();
+                    Debug.Log("uhhh ");
                 }
-
-                recorded = true;
-                StartCoroutine(resetTime());
-
             }
             else
             {
-                Debug.Log("uhhh ");
+                Debug.Log("small bumper hit.");
+                CarHealth.instance.minusHealth(2);
             }
-        }
-        else
-        {
-            Debug.Log("small bumper hit.");
-            CarHealth.instance.minusHealth(2);
         }
         
     }
