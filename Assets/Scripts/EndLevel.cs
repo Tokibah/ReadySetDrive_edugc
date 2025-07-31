@@ -35,6 +35,7 @@ public class EndLevel : MonoBehaviour
 
             if (currentLvl.name == "lvl3")
             {
+                PointCounter.instance.ruleFollowed();
                 PointCounter.instance.levelSuccess();
             }
 
