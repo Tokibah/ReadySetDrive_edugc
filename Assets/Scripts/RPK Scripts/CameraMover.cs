@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class CameraMover : MonoBehaviour
 {
-    [Header("Target Y Position")]
-    public float targetY = 5f;         
-    public float moveSpeed = 5f;       
+    [Header("Target Position")]
+    public Vector3 targetPosition = new Vector3(0, 5f, 0); 
+    public float moveSpeed = 5f;
 
     private bool shouldMove = false;
 
@@ -17,18 +17,18 @@ public class CameraMover : MonoBehaviour
     {
         if (shouldMove)
         {
-            Vector3 currentPos = transform.position;
-            Vector3 targetPos = new Vector3(currentPos.x, targetY, currentPos.z);
-
+            // Move the camera towards the target position
             transform.position = Vector3.MoveTowards(
-                currentPos,
-                targetPos,
+                transform.position,
+                targetPosition,
                 moveSpeed * Time.deltaTime
             );
 
-            if (Mathf.Abs(transform.position.y - targetY) < 0.01f)
+            // Check if the camera has arrived at the target position
+            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
-                transform.position = targetPos;
+                // Snap the position to the exact target and stop moving
+                transform.position = targetPosition;
                 shouldMove = false;
             }
         }
