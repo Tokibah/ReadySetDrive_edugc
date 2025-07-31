@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreenManager : MonoBehaviour
 {
-
     [Header("UI")]
-    public RectTransform logo; 
+    [Tooltip("The CanvasGroup component of your logo. This is used for fading.")]
+    public CanvasGroup logoCanvasGroup; // Changed from RectTransform to CanvasGroup
     public GameObject pressAnyButtonText;
     public GameObject mainMenuPanel;
 
@@ -15,22 +15,42 @@ public class TitleScreenManager : MonoBehaviour
     public Button newGameButton;
     public Button settingsButton;
 
-    [Header("Logo Animation")]
-    public float logoSlideSpeed = 800f;
-    public Vector2 logoTargetPosition = new Vector2(-600f, 0f);
+    [Header("Logo Fade Animation")] // Renamed header
+    [Tooltip("How fast the logo will fade out.")]
+    public float logoFadeSpeed = 1.5f; // Speed for fading (alpha per second)
+    [Tooltip("The target alpha value for the logo (0 for fully transparent).")]
+    [Range(0f, 1f)]
+    public float logoTargetAlpha = 0f; // Target alpha for fading out
 
-    [Header("Camera Movement")]
-    public CameraMover cameraMover; 
+    [Header("Camera Movement & Spawner")] // Updated header
+    public CameraMover cameraMover;
+    [Tooltip("The Spawner script to disable after a button press.")]
+    public Spawner spawner; // Added reference to Spawner
 
     private bool hasPressedStart = false;
-    private bool isLogoMoving = false;
+    private bool isLogoFading = false; // Renamed for clarity
 
     void Start()
     {
         mainMenuPanel.SetActive(false);
 
+        // Ensure the logo starts fully visible if it's meant to fade out
+        if (logoCanvasGroup != null)
+        {
+            logoCanvasGroup.alpha = 1f;
+            logoCanvasGroup.interactable = true; // Make sure it's interactable before fade
+            logoCanvasGroup.blocksRaycasts = true; // Make sure it blocks raycasts before fade
+        }
+
         bool isFirstTime = !PlayerPrefs.HasKey("HasPlayedBefore");
         continueButton.gameObject.SetActive(!isFirstTime);
+
+        // Basic validation for logoCanvasGroup
+        if (logoCanvasGroup == null)
+        {
+            Debug.LogError("TitleScreenManager: 'Logo Canvas Group' is not assigned! Please assign the CanvasGroup component of your logo in the Inspector.", this);
+            // You might want to disable fading if it's not set up
+        }
     }
 
     void Update()
@@ -39,29 +59,42 @@ public class TitleScreenManager : MonoBehaviour
         {
             hasPressedStart = true;
             pressAnyButtonText.SetActive(false);
-            isLogoMoving = true;
+            isLogoFading = true; // Start the fade animation
 
             if (cameraMover != null)
             {
-                cameraMover.StartCameraMove(); 
+                cameraMover.StartCameraMove();
+            }
+
+            // Disable the spawner after the button is pressed
+            if (spawner != null)
+            {
+                spawner.enabled = false;
+                Debug.Log("Spawner disabled.");
             }
         }
 
-        if (isLogoMoving)
+        // Handle logo fading
+        if (isLogoFading && logoCanvasGroup != null)
         {
-            logo.anchoredPosition = Vector2.MoveTowards(
-                logo.anchoredPosition,
-                logoTargetPosition,
-                logoSlideSpeed * Time.deltaTime
+            // Gradually decrease the alpha towards the target (0)
+            logoCanvasGroup.alpha = Mathf.MoveTowards(
+                logoCanvasGroup.alpha,
+                logoTargetAlpha,
+                logoFadeSpeed * Time.deltaTime
             );
 
-            if (Vector2.Distance(logo.anchoredPosition, logoTargetPosition) < 1f)
+            // Check if the logo has faded out completely
+            if (Mathf.Abs(logoCanvasGroup.alpha - logoTargetAlpha) < 0.01f)
             {
-                logo.anchoredPosition = logoTargetPosition;
-                isLogoMoving = false;
+                logoCanvasGroup.alpha = logoTargetAlpha; // Snap to target alpha
+                isLogoFading = false; // Stop fading
+
+                // Optionally disable interaction and raycasts once fully faded
+                logoCanvasGroup.interactable = false;
+                logoCanvasGroup.blocksRaycasts = false;
+
                 ShowMainMenu();
-
-
             }
         }
     }

@@ -44,11 +44,7 @@ public class intersectionStopTrigger : MonoBehaviour
         {
             Debug.Log("Good to go. Add reputation.");
             waited = true; // Set waited to true ONLY if player is still in trigger
-            if (PointCounter.instance != null)
-            {
-                // You might give points here for stopping successfully
-                // PointCounter.instance.ruleFollowed(); // Optional: Reward for successful wait
-            }
+            PointCounter.instance.ruleFollowed();
         }
         else
         {

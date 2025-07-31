@@ -17,31 +17,35 @@ public class EndLevel : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        if (PointCounter.instance.collectedRep >= requiredScore)
+       if (collision.gameObject.CompareTag("Player"))
         {
-            //levelEntrance.SetActive(true);
-            //if (lockUI != null) lockUI.SetActive(false);
-            PointCounter.instance.levelSuccess();
+            if (PointCounter.instance.collectedRep >= requiredScore)
+            {
+                //levelEntrance.SetActive(true);
+                //if (lockUI != null) lockUI.SetActive(false);
+                PointCounter.instance.levelSuccess();
+            }
+            else
+            {
+                //levelEntrance.SetActive(false);
+                //if (lockUI != null) lockUI.SetActive(true);
+                PointCounter.instance.levelFailed();
+            }
+
+
+            if (currentLvl.name == "lvl3")
+            {
+                PointCounter.instance.ruleFollowed();
+                PointCounter.instance.levelSuccess();
+            }
+
+
+
+
+            Time.timeScale = 0;
+            LevelManager.instance.noPause();
+            PointCounter.instance.levelSummary();
         }
-        else
-        {
-            //levelEntrance.SetActive(false);
-            //if (lockUI != null) lockUI.SetActive(true);
-            PointCounter.instance.levelFailed();
-        }
-
-
-        if (currentLvl.name == "lvl3")
-        {
-            PointCounter.instance.levelSuccess();
-        }
-
-
-
-
-        Time.timeScale = 0;
-        LevelManager.instance.noPause();
-        PointCounter.instance.levelSummary();
     }
 
     
