@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,10 +11,11 @@ public class LevelManager : MonoBehaviour
     public GameObject summaryUI;
     public GameObject pauseMenu;
     public GameObject pauseBtn;
+    public Text levelCounter;
 
     private bool isPaused;
     private bool allowPause = true;
-    private int currentLevel = 0;
+    private int currentLevel = 1;
 
     private void Awake()
     {
@@ -23,9 +25,8 @@ public class LevelManager : MonoBehaviour
     public void GoToNextLevel()
     {
 
-        if (currentLevel < levelSpawnPoints.Length)
-        {
-            currentLevel++;
+            currentLevel = currentLevel + 1;
+            LevelUnlock.UnlockLevel(currentLevel);
             Vector3 spawnPosition = levelSpawnPoints[currentLevel].position;
             player.rotation = levelSpawnPoints[currentLevel].rotation;
             player.position = spawnPosition;
@@ -35,13 +36,10 @@ public class LevelManager : MonoBehaviour
             PointCounter.instance.nextLevelBtn.SetActive(false);
             summaryUI.SetActive(false);
             //CheckpointArrow.instance.updateArrow(currentLevel);
-            if (currentLevel == 4)
-            {
-
-            }
+            
             yesPause();
             Debug.Log("Player moved to Level " + (currentLevel + 1));
-        }
+        
         
     }
 
@@ -81,29 +79,9 @@ public class LevelManager : MonoBehaviour
         isPaused = false;
     }
 
-    public void lvl1()
+   public void setLevel(int lvl)
     {
-        currentLevel = 0;
-    }
-
-    public void lvl2()
-    {
-        currentLevel = 1;
-    }
-
-    public void lvl3()
-    {
-        currentLevel = 2;
-    }
-
-    public void lvl4()
-    {
-        currentLevel = 3;
-    }
-
-    public void lvl5()
-    {
-        currentLevel = 4;
+        currentLevel = lvl;
     }
 
     public void noPause()
@@ -118,6 +96,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
+        levelCounter.text = currentLevel.ToString();
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (allowPause && !isPaused)

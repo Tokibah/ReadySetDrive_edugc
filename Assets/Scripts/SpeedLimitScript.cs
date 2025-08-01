@@ -47,7 +47,11 @@ public class SpeedLimitScript : MonoBehaviour
                 Debug.Log("Player obeyed speed limit. Add reputation.");
                 PointCounter.instance.ruleFollowed();
             }
-            }
+        }
+        else
+        {
+            Debug.Log("speeding tak detect!!");
+        }
         
     }
 }
