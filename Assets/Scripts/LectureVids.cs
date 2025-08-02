@@ -1,84 +1,71 @@
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements like Text, Button (though we'll use TMPro for text)
-using System.Collections; // Required for Coroutines
-using TMPro; // Required for TextMeshProUGUI
-using UnityEngine.Video; // Required for VideoPlayer
+using UnityEngine.UI;
+using System.Collections;
+using TMPro;
+using UnityEngine.Video;
+using UnityEngine.Audio;
 
 public class LectureVids : MonoBehaviour
 {
-    private int unlockedVideoCount = 1; // default to 1 video unlocked
+    private int unlockedVideoCount = 1;
 
     [Header("UI Elements")]
-    public GameObject popupMessageUI; // UI element to show "Press E to interact"
+    public GameObject popupMessageUI;
     public GameObject lectureUI;
-    public TextMeshProUGUI[] optionButtons; // Changed from Text[] to TextMeshProUGUI[]
+    public TextMeshProUGUI[] optionButtons;
     public TextMeshProUGUI exit;
 
     [Header("Player References")]
-    public PlayerMovement playerMovementScript; // Reference to your player's movement script
-                                                // Make sure this script has a public method like SetCanMove(bool canMove)
-                                                // or a public property like bool CanMove { get; set; }
+    public PlayerMovement playerMovementScript;
 
     [Header("Video Playback")]
-    public VideoPlayer videoPlayer; // Reference to the VideoPlayer component
-    public VideoClip[] lectureVideos; // The video clip for "Papan tanda berhenti"
-    public GameObject videoScreenObject; // A GameObject where the video will be rendered (e.g., a RawImage on UI or a plane in world)
-    public RawImage videoDisplayRawImage; // If videoScreenObject is a RawImage, assign it here
-    public RenderTexture videoRenderTexture; // A RenderTexture to render the video onto
+    public VideoPlayer videoPlayer;
+    public VideoClip[] lectureVideos;
+    [Tooltip("The GameObject where the video will be rendered, typically a plane or a RawImage for UI.")]
+    public GameObject videoScreenObject;
+
+    [Header("Video Settings")]
+    [Tooltip("The volume to set the video player to when it starts playing (0.0 to 1.0).")]
+    [Range(0f, 1f)]
+    public float videoVolume = 0.11f;
+    
+    [Header("Audio Mixer")]
+    [Tooltip("Assign your main AudioMixer to mute when the video plays.")]
+    public AudioMixer gameAudioMixer;
+    public string masterVolumeExposer = "MasterVolume";
+    private float originalMasterVolume;
 
     private bool playerInRange = false;
     private bool inConversation = false;
-    private int selectedOptionIndex = 0; // 0: Papan tanda berhenti, 1: Kawasan Sekolah, 2: Nevermind...
-
-    private bool canSelectOption = false; // New flag to control when options can be selected
-
-    // --- Unity Lifecycle Methods ---
+    private int selectedOptionIndex = 0;
+    private bool canSelectOption = false;
 
     private void Start()
     {
         unlockedVideoCount = PlayerPrefs.GetInt("UnlockedVideos", 4);
-        // Ensure UI elements are hidden at the start
         if (popupMessageUI != null) popupMessageUI.SetActive(false);
-        if (lectureUI!= null) lectureUI.SetActive(false);
-        if (videoScreenObject != null) videoScreenObject.SetActive(false); // Ensure video screen is hidden
+        if (lectureUI != null) lectureUI.SetActive(false);
+        if (videoScreenObject != null) videoScreenObject.SetActive(false);
 
-        // Initialize option text colors
         UpdateOptionDisplay();
 
-        // Initialize VideoPlayer settings
         if (videoPlayer != null)
         {
-            videoPlayer.playOnAwake = false; // Don't play automatically
-            videoPlayer.isLooping = false; // Don't loop by default
+            videoPlayer.playOnAwake = false;
+            videoPlayer.isLooping = false;
 
-            // Set the target texture for the video player
-            if (videoRenderTexture != null)
-            {
-                videoPlayer.renderMode = VideoRenderMode.RenderTexture;
-                videoPlayer.targetTexture = videoRenderTexture;
-            }
-            else
-            {
-                Debug.LogWarning("Video Render Texture is not assigned. Video might not display correctly.");
-            }
-
-            // If using a RawImage, assign the RenderTexture to it
-            if (videoDisplayRawImage != null && videoRenderTexture != null)
-            {
-                videoDisplayRawImage.texture = videoRenderTexture;
-            }
+            // --- CHANGED: Use CameraNearPlane render mode ---
+            videoPlayer.renderMode = VideoRenderMode.CameraNearPlane;
         }
     }
 
     private void Update()
     {
-        // Check for interaction to enter conversation
         if (playerInRange && Input.GetKeyDown(KeyCode.E) && !inConversation)
         {
             EnterConversationState();
         }
 
-        // Handle input during conversation
         if (inConversation)
         {
             HandleConversationInput();
@@ -87,8 +74,7 @@ public class LectureVids : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the entering collider is the player
-        if (other.CompareTag("Player")) // Make sure your player GameObject has the tag "Player"
+        if (other.CompareTag("Player"))
         {
             playerInRange = true;
             if (popupMessageUI != null) popupMessageUI.SetActive(true);
@@ -98,11 +84,9 @@ public class LectureVids : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Check if the exiting collider is the player
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            // Always exit conversation if player leaves range
             if (inConversation)
             {
                 ExitConversationState();
@@ -112,81 +96,64 @@ public class LectureVids : MonoBehaviour
         }
     }
 
-    // --- Conversation State Management ---
-
     private void EnterConversationState()
     {
         inConversation = true;
         Debug.Log("Entering conversation state.");
 
-        // Disable player movement
         if (playerMovementScript != null)
         {
-            playerMovementScript.SetCanMove(false); // Assuming PlayerMovement has this method
+            playerMovementScript.SetCanMove(false);
         }
 
-        // Hide popup and show dialogue panel
         if (popupMessageUI != null) popupMessageUI.SetActive(false);
         if (lectureUI != null) lectureUI.SetActive(true);
 
-        // Reset selected option and update UI
         selectedOptionIndex = 0;
         UpdateOptionDisplay();
 
-        // Start coroutine to enable option selection after a short delay
-        StartCoroutine(EnableSelectionAfterDelay(0.1f)); // 0.1 seconds delay
+        StartCoroutine(EnableSelectionAfterDelay(0.1f));
     }
 
-    public void ExitConversationState() // Made public so it can be called externally if needed (e.g., by video player)
+    public void ExitConversationState()
     {
         inConversation = false;
         Debug.Log("Exiting conversation state.");
 
-        // Disable option selection immediately upon exiting conversation
         canSelectOption = false;
 
-        // Enable player movement
         if (playerMovementScript != null)
         {
-            playerMovementScript.SetCanMove(true); // Assuming PlayerMovement has this method
+            playerMovementScript.SetCanMove(true);
         }
 
-        // Hide dialogue panel
         if (lectureUI != null) lectureUI.SetActive(false);
-
-        // Hide video screen if it was active
         if (videoScreenObject != null) videoScreenObject.SetActive(false);
 
-        // Show popup again if player is still in range (after conversation)
         if (playerInRange && popupMessageUI != null)
         {
             popupMessageUI.SetActive(true);
         }
     }
 
-    // Coroutine to introduce a small delay before allowing option selection
     private IEnumerator EnableSelectionAfterDelay(float delay)
     {
-        canSelectOption = false; // Ensure selection is disabled initially
-        yield return new WaitForSeconds(delay); // Wait for the specified delay
-        canSelectOption = true; // Enable selection after the delay
+        canSelectOption = false;
+        yield return new WaitForSeconds(delay);
+        canSelectOption = true;
         Debug.Log("Option selection enabled.");
     }
 
-    // --- Input Handling ---
-
     private void HandleConversationInput()
     {
-        // Only process selection input if allowed
         if (!canSelectOption) return;
 
-        // Navigate options with W/S or Up/Down arrow keys
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             selectedOptionIndex--;
             if (selectedOptionIndex < 0)
             {
-                selectedOptionIndex = optionButtons.Length - 1; // Wrap around to last option
+                selectedOptionIndex = optionButtons.Length - 1;
             }
             UpdateOptionDisplay();
         }
@@ -195,12 +162,11 @@ public class LectureVids : MonoBehaviour
             selectedOptionIndex++;
             if (selectedOptionIndex >= optionButtons.Length)
             {
-                selectedOptionIndex = 0; // Wrap around to first option
+                selectedOptionIndex = 0;
             }
             UpdateOptionDisplay();
         }
 
-        // Confirm selection with E or Enter key
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
         {
             SelectOption();
@@ -216,16 +182,15 @@ public class LectureVids : MonoBehaviour
             if (optionButtons[i] != null)
             {
                 bool isUnlocked = i < unlockedVideoCount;
-                // Highlight the selected option, dim others
                 if (i == selectedOptionIndex)
                 {
-                    optionButtons[i].color = isUnlocked ? Color.yellow : Color.gray; // Or any highlight color
-                    optionButtons[i].fontStyle = isUnlocked ? FontStyles.Bold : FontStyles.Italic; // Use FontStyles for TextMeshPro
+                    optionButtons[i].color = isUnlocked ? Color.yellow : Color.gray;
+                    optionButtons[i].fontStyle = isUnlocked ? FontStyles.Bold : FontStyles.Italic;
                 }
                 else
                 {
-                    optionButtons[i].color = isUnlocked ? Color.black : Color.gray; // Default color
-                    optionButtons[i].fontStyle = FontStyles.Normal; // Use FontStyles for TextMeshPro
+                    optionButtons[i].color = isUnlocked ? Color.black : Color.gray;
+                    optionButtons[i].fontStyle = FontStyles.Normal;
                 }
             }
         }
@@ -233,27 +198,26 @@ public class LectureVids : MonoBehaviour
 
     private void SelectOption()
     {
-        // Disable selection immediately after an option is chosen to prevent double-clicks
         canSelectOption = false;
 
         if (selectedOptionIndex >= unlockedVideoCount)
         {
             Debug.Log("Option is locked.");
-            StartCoroutine(EnableSelectionAfterDelay(0.1f)); // re-enable selection
+            StartCoroutine(EnableSelectionAfterDelay(0.1f));
             return;
         }
 
         switch (selectedOptionIndex)
         {
-            case 0: // Nevermind...
+            case 0:
                 Debug.Log("Selected: Nevermind... - Exiting conversation.");
                 ExitConversationState();
                 break;
-            case 1: // Papan tanda berhenti
+            case 1:
                 Debug.Log("Selected: Papan tanda berhenti - Playing video...");
                 PlayRoadSignVideo(1);
                 break;
-            case 2: // Kawasan Sekolah
+            case 2:
                 Debug.Log("Selected: Kawasan Sekolah - Playing video...");
                 PlayRoadSignVideo(2);
                 break;
@@ -284,110 +248,26 @@ public class LectureVids : MonoBehaviour
         }
     }
 
-    // --- Video Playback Implementation ---
-
     private void PlayRoadSignVideo(int videoType)
     {
-        // 1. Hide the dialogue panel
         if (lectureUI != null) lectureUI.SetActive(false);
 
-        // 2. Ensure VideoPlayer and video clips are assigned
         if (videoPlayer == null)
         {
             Debug.LogError("VideoPlayer is not assigned in the Inspector!");
-            ExitConversationState(); // Exit to prevent being stuck
+            ExitConversationState();
             return;
         }
 
-        if (videoType == 1)
+        if (videoType >= 1 && videoType <= lectureVideos.Length)
         {
-            if (lectureVideos == null)
+            if (lectureVideos[videoType - 1] == null)
             {
-                Debug.LogError("Stop Sign VideoClip is not assigned!");
+                Debug.LogError($"VideoClip for type {videoType} is not assigned!");
                 ExitConversationState();
                 return;
             }
-            videoPlayer.clip = lectureVideos[0];
-        }
-        else if (videoType == 2)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[1];
-        }
-        else if (videoType == 3)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[2];
-        }
-        else if (videoType == 4)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[3];
-        }
-        else if (videoType == 5)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[4];
-        }
-        else if (videoType == 6)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[5];
-        }
-        else if (videoType == 7)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[6];
-        }
-        else if (videoType == 8)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[7];
-        }
-        else if (videoType == 9)
-        {
-            if (lectureVideos == null)
-            {
-                Debug.LogError("School Area VideoClip is not assigned!");
-                ExitConversationState();
-                return;
-            }
-            videoPlayer.clip = lectureVideos[8];
+            videoPlayer.clip = lectureVideos[videoType - 1];
         }
         else
         {
@@ -396,7 +276,12 @@ public class LectureVids : MonoBehaviour
             return;
         }
 
-        // 3. Show the screen where the video will play
+        if (gameAudioMixer != null)
+        {
+            gameAudioMixer.GetFloat(masterVolumeExposer, out originalMasterVolume);
+            gameAudioMixer.SetFloat(masterVolumeExposer, -80f);
+        }
+
         if (videoScreenObject != null)
         {
             videoScreenObject.SetActive(true);
@@ -406,34 +291,48 @@ public class LectureVids : MonoBehaviour
             Debug.LogWarning("Video Screen Object is not assigned. Video might not be visible.");
         }
 
-        // 4. Subscribe to the loopPointReached event to know when the video ends
         videoPlayer.loopPointReached += OnVideoEnd;
 
-        // 5. Play the video
+        if (videoPlayer.audioOutputMode == VideoAudioOutputMode.Direct)
+        {
+            videoPlayer.SetDirectAudioVolume(0, videoVolume);
+        }
+        else
+        {
+             Debug.LogWarning("Video Player's Audio Output Mode is not set to 'Direct'. Video volume will not be controlled.");
+        }
+
         videoPlayer.Play();
         Debug.Log($"Playing video: {videoPlayer.clip.name}");
     }
 
-    // This method is called when the video finishes playing
     private void OnVideoEnd(VideoPlayer vp)
     {
         Debug.Log("Video finished playing.");
-        vp.Stop(); // Stop the video player
-        vp.loopPointReached -= OnVideoEnd; // Unsubscribe to prevent multiple calls
+        vp.Stop();
 
-        // Hide video screen
+        if (gameAudioMixer != null)
+        {
+            gameAudioMixer.SetFloat(masterVolumeExposer, originalMasterVolume);
+        }
+
+        if (vp.audioOutputMode == VideoAudioOutputMode.Direct)
+        {
+            vp.SetDirectAudioVolume(0, 0f);
+        }
+
+        vp.loopPointReached -= OnVideoEnd;
+
         if (videoScreenObject != null)
         {
             videoScreenObject.SetActive(false);
         }
 
-        // Show dialogue panel again to return to conversation
         if (lectureUI != null)
         {
             lectureUI.SetActive(true);
         }
 
-        // Re-enable option selection after a short delay
         StartCoroutine(EnableSelectionAfterDelay(0.1f));
     }
 }

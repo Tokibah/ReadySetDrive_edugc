@@ -16,7 +16,6 @@ public class PointCounter : MonoBehaviour
     public GameObject summaryUI;
     string status;
     public int rep, followed, broken;
-    private int levelCompleted = 0;
     public Text displayCount;
     public Text requiredRep;
 
