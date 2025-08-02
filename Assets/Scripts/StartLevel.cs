@@ -4,17 +4,75 @@ using UnityEngine.UI;
 
 public class StartLevel : MonoBehaviour
 {
+    public static StartLevel instance;
     public Transform player;            // Drag your player prefab or object here
     public Collider[] spawnZoneCollider;  // Drag the spawn zone collider here
-    public GameObject levelUI, pause, speed;
+    public GameObject levelUI, pause, speed, summary;
+    const int totalLevels = 5;
+    public Button[] levelButtons;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.Confined;
+
+        for (int i = 1; i <= totalLevels; i++)
+        {
+            if (LevelUnlock.IsLevelUnlocked(i))
+            {
+                levelButtons[i - 1].interactable = true;
+                Debug.Log("unlocked level" + i);
+            }
+            else
+            {
+                levelButtons[i - 1].interactable = false;
+                Debug.Log("still locked level" + i);
+
+            }
+        }
+
         levelUI.SetActive(true);
-        
         LevelManager.instance.noPause();
+    }
+
+    public void selectLevel()
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
+        for (int i = 1; i <= totalLevels; i++)
+        {
+            if (LevelUnlock.IsLevelUnlocked(i))
+            {
+                levelButtons[i - 1].interactable = true;
+            }
+            else
+            {
+                levelButtons[i - 1].interactable = false;
+            }
+        }
+        Debug.Log("Latest level: " + PlayerPrefs.GetInt("LatestLevel", 1));
+        levelUI.SetActive(true);
+        summary.SetActive(false);
+        LevelManager.instance.noPause();
+    }
+
+    public void checkLevel()
+    {
+        for (int i = 1; i <= totalLevels; i++)
+        {
+            if (LevelUnlock.IsLevelUnlocked(i))
+            {
+                levelButtons[i - 1].interactable = true;
+            }
+            else
+            {
+                levelButtons[i - 1].interactable = false;
+            }
+        }
     }
 
     public void level1()
@@ -27,7 +85,7 @@ public class StartLevel : MonoBehaviour
             speed.SetActive(true);
             //CheckpointArrow.instance.updateArrow(0) ;
             LevelManager.instance.yesPause();
-            LevelManager.instance.lvl1();
+            LevelManager.instance.setLevel(0);
 
 
             // Get a random point inside the spawn zone's bounds
@@ -43,6 +101,7 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
+            PointCounter.instance.resetPoint();
 
 
 
@@ -59,7 +118,7 @@ public class StartLevel : MonoBehaviour
             speed.SetActive(true);
             //CheckpointArrow.instance.updateArrow(1);
             LevelManager.instance.yesPause();   
-            LevelManager.instance.lvl2();
+            LevelManager.instance.setLevel(1);
 
 
             // Get a random point inside the spawn zone's bounds
@@ -75,6 +134,7 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
+            PointCounter.instance.resetPoint();
 
 
         }
@@ -90,7 +150,7 @@ public class StartLevel : MonoBehaviour
             speed.SetActive(true);
             //CheckpointArrow.instance.updateArrow(2);
             LevelManager.instance.yesPause();
-            LevelManager.instance.lvl3();
+            LevelManager.instance.setLevel(2);
             popupController.instance.ShowPopup("Bawa kereta ke hujung lebuh raya tanpa dilanggar. Peka dengan keadaan sekeliling!");
 
             // Get a random point inside the spawn zone's bounds
@@ -106,6 +166,7 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
+            PointCounter.instance.resetPoint();
 
 
         }
@@ -121,7 +182,7 @@ public class StartLevel : MonoBehaviour
             speed.SetActive(true);
             //CheckpointArrow.instance.updateArrow(3);
             LevelManager.instance.yesPause();
-            LevelManager.instance.lvl4();
+            LevelManager.instance.setLevel(3);
 
 
             // Get a random point inside the spawn zone's bounds
@@ -138,6 +199,7 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
+            PointCounter.instance.resetPoint();
 
 
         }
@@ -151,13 +213,13 @@ public class StartLevel : MonoBehaviour
             levelUI.SetActive(false);
             pause.SetActive(true);
             speed.SetActive(true);
-            LevelManager.instance.lvl5();
+            LevelManager.instance.setLevel(4);
             //CheckpointArrow.instance.hideArrow();
             LevelManager.instance.yesPause();
-            GameObject[] borders = GameObject.FindGameObjectsWithTag("WorldBorder");
-            foreach (GameObject border in borders)
+            GameObject[] borders = GameObject.FindGameObjectsWithTag("Cones");
+            foreach (GameObject cone in borders)
             {
-                border.SetActive(false);
+                cone.SetActive(false);
             }
 
 
@@ -175,9 +237,13 @@ public class StartLevel : MonoBehaviour
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
+            PointCounter.instance.resetPoint();
 
         }
     }
+
+   
+    
 
 
 }

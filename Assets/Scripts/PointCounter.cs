@@ -16,7 +16,7 @@ public class PointCounter : MonoBehaviour
     public GameObject summaryUI;
     string status;
     public int rep, followed, broken;
-    private int levelCompleted;
+    private int levelCompleted = 0;
     public Text displayCount;
     public Text requiredRep;
 
@@ -52,7 +52,7 @@ public class PointCounter : MonoBehaviour
 
     public void levelSuccess()
     {
-        levelCompleted++;
+
         levelStatus.text = "Berjaya!";
         nextLevelBtn.SetActive(true);
         retryBtn.SetActive(false);

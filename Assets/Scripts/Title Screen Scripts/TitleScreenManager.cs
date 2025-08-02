@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class TitleScreenManager : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class TitleScreenManager : MonoBehaviour
     public CanvasGroup logoCanvasGroup; // Changed from RectTransform to CanvasGroup
     public GameObject pressAnyButtonText;
     public GameObject mainMenuPanel;
+    public GameObject quitPanel;
 
     [Header("Buttons")]
     public Button continueButton;
     public Button newGameButton;
     public Button settingsButton;
+
 
     [Header("Logo Fade Animation")] // Renamed header
     [Tooltip("How fast the logo will fade out.")]
@@ -29,6 +32,9 @@ public class TitleScreenManager : MonoBehaviour
 
     private bool hasPressedStart = false;
     private bool isLogoFading = false; // Renamed for clarity
+
+    public VideoPlayer videoPlayer;
+    public int level;
 
     void Start()
     {
@@ -106,18 +112,40 @@ public class TitleScreenManager : MonoBehaviour
 
     public void OnNewGame()
     {
-        PlayerPrefs.SetInt("HasPlayedBefore", 1);
-        PlayerPrefs.Save();
-        SceneManager.LoadScene("GameScene");
+
+         pressAnyButtonText.SetActive(false);
+        mainMenuPanel.SetActive(false);
+    videoPlayer.loopPointReached += onVideoEnd;
+        videoPlayer.Play();
     }
 
     public void OnContinue()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("HomeScene");
     }
 
     public void OnSettings()
     {
         Debug.Log("Settings clicked");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void quitConfirm()
+    {
+        quitPanel.SetActive(true);
+    }
+
+    public void quitCancel()
+    {
+        quitPanel.SetActive(false);
+    }
+
+    void onVideoEnd(VideoPlayer vp)
+    {
+        SceneManager.LoadScene(level);
     }
 }

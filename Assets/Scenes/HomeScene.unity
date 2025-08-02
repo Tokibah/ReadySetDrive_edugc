@@ -6253,11 +6253,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8629282696440056956, guid: 6abbaa082161efe42a0b8236faabd04b, type: 3}
   m_PrefabInstance: {fileID: 1464539548}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &236641716 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 93753523097986893, guid: 4416eddc4b40ee74596b0905b22e4769, type: 3}
-  m_PrefabInstance: {fileID: 1392243833163720375}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &237123094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20058,7 +20053,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4883828922225584757, guid: 58b00a479e732764882aed91f471e931, type: 3}
   m_PrefabInstance: {fileID: 1156237503}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &797177064
+--- !u!4 &797177065 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3633531256965781921, guid: 58b00a479e732764882aed91f471e931, type: 3}
+  m_PrefabInstance: {fileID: 1156237503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &797177066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20067,19 +20067,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 797177063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa44af8a9b24094c93df055fe3b0600, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cd4bc78c11ff5044a4d8f5771eab2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 236641716}
-  levelSpawnPoints: []
-  summaryUI: {fileID: 0}
   pauseMenu: {fileID: 1710795362}
   pauseBtn: {fileID: 616355303}
---- !u!4 &797177065 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3633531256965781921, guid: 58b00a479e732764882aed91f471e931, type: 3}
-  m_PrefabInstance: {fileID: 1156237503}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &797516840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29881,7 +29873,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4883828922225584757, guid: 58b00a479e732764882aed91f471e931, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 797177064}
+      addedObject: {fileID: 797177066}
   m_SourcePrefab: {fileID: 100100000, guid: 58b00a479e732764882aed91f471e931, type: 3}
 --- !u!4 &1156672968 stripped
 Transform:

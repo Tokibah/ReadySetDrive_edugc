@@ -9,6 +9,8 @@ public class EndLevel : MonoBehaviour
     public GameObject nextLvl;
     public GameObject currentLvl;
     public int requiredScore = 30;
+    public int currentLevel;
+    public int videoUnlocks;
 
     private void Awake()
     {
@@ -21,6 +23,13 @@ public class EndLevel : MonoBehaviour
         {
             if (PointCounter.instance.collectedRep >= requiredScore)
             {
+                LevelUnlock.UnlockLevel(currentLevel+1);
+                LevelUnlock.SaveLatestLevel(currentLevel + 1);
+                if (currentLevel != 5)
+                {
+                    PlayerPrefs.SetInt("UnlockedVideos", videoUnlocks);
+                    PlayerPrefs.Save();
+                }
                 //levelEntrance.SetActive(true);
                 //if (lockUI != null) lockUI.SetActive(false);
                 PointCounter.instance.levelSuccess();
@@ -36,6 +45,8 @@ public class EndLevel : MonoBehaviour
             if (currentLvl.name == "lvl3")
             {
                 PointCounter.instance.ruleFollowed();
+                LevelUnlock.UnlockLevel(currentLevel + 1);
+                LevelUnlock.SaveLatestLevel(currentLevel + 1);
                 PointCounter.instance.levelSuccess();
             }
 
