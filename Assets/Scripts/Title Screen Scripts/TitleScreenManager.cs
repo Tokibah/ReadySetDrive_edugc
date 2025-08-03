@@ -112,10 +112,10 @@ public class TitleScreenManager : MonoBehaviour
 
     public void OnNewGame()
     {
-
+        LevelUnlock.ResetAllProgress();
          pressAnyButtonText.SetActive(false);
         mainMenuPanel.SetActive(false);
-    videoPlayer.loopPointReached += onVideoEnd;
+        videoPlayer.loopPointReached += onVideoEnd;
         videoPlayer.Play();
     }
 
