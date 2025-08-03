@@ -56,7 +56,17 @@ MonoBehaviour:
       - rid: 4257101607695548509
       - rid: 4257101607695548510
     m_RuntimeSettings:
-      m_List: []
+      m_List:
+      - rid: 4257101607695548491
+      - rid: 4257101607695548493
+      - rid: 4257101607695548495
+      - rid: 4257101607695548496
+      - rid: 4257101607695548497
+      - rid: 4257101607695548498
+      - rid: 4257101607695548500
+      - rid: 4257101607695548502
+      - rid: 4257101607695548506
+      - rid: 4257101607695548509
   m_AssetVersion: 8
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
   m_RenderingLayerNames:
