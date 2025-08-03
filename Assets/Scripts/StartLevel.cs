@@ -10,10 +10,13 @@ public class StartLevel : MonoBehaviour
     public GameObject levelUI, pause, speed, summary;
     const int totalLevels = 5;
     public Button[] levelButtons;
+    public GameObject endpoints;
+    private GameObject[] cones;
 
     private void Awake()
     {
         instance = this;
+        cones = GameObject.FindGameObjectsWithTag("Cones");
     }
     void Start()
     {
@@ -57,6 +60,11 @@ public class StartLevel : MonoBehaviour
         Debug.Log("Latest level: " + PlayerPrefs.GetInt("LatestLevel", 1));
         levelUI.SetActive(true);
         summary.SetActive(false);
+        pause.SetActive(false);
+        
+
+        // If you have roadblock colliders, also disable them:
+        endpoints.SetActive(true);
         LevelManager.instance.noPause();
     }
 
@@ -98,6 +106,11 @@ public class StartLevel : MonoBehaviour
                 Random.Range(center.z - size.z / 2, center.z + size.z / 2)
             );
 
+            foreach (GameObject cone in cones)
+            {
+                cone.SetActive(true);
+                Debug.Log("Cone should be gone.");
+            }
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
@@ -131,6 +144,13 @@ public class StartLevel : MonoBehaviour
                 Random.Range(center.z - size.z / 2, center.z + size.z / 2)
             );
 
+            foreach (GameObject cone in cones)
+            {
+                cone.SetActive(true);
+                Debug.Log("Cone should be gone.");
+
+            }
+
             // Move player to spawn position
             player.position = randomPosition;
             player.rotation = Quaternion.identity;
@@ -162,6 +182,13 @@ public class StartLevel : MonoBehaviour
                 center.y,
                 Random.Range(center.z - size.z / 2, center.z + size.z / 2)
             );
+
+            foreach (GameObject cone in cones)
+            {
+                cone.SetActive(true);
+                Debug.Log("Cone should be gone.");
+
+            }
 
             // Move player to spawn position
             player.position = randomPosition;
@@ -195,6 +222,13 @@ public class StartLevel : MonoBehaviour
                 Random.Range(center.z - size.z / 2, center.z + size.z / 2)
             );
 
+            foreach (GameObject cone in cones)
+            {
+                cone.SetActive(true);
+                Debug.Log("Cone should be gone.");
+
+            }
+
 
             // Move player to spawn position
             player.position = randomPosition;
@@ -216,11 +250,14 @@ public class StartLevel : MonoBehaviour
             LevelManager.instance.setLevel(4);
             //CheckpointArrow.instance.hideArrow();
             LevelManager.instance.yesPause();
-            GameObject[] borders = GameObject.FindGameObjectsWithTag("Cones");
-            foreach (GameObject cone in borders)
+            foreach (GameObject cone in cones)
             {
                 cone.SetActive(false);
             }
+
+            // If you have roadblock colliders, also disable them:
+            endpoints.SetActive(false);
+
 
 
             // Get a random point inside the spawn zone's bounds

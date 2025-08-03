@@ -8,6 +8,7 @@ public class popupController : MonoBehaviour
 
     public GameObject popupPanel; // UI Panel or background for the popup
     public TextMeshProUGUI popupText; // The message text
+    public TextMeshProUGUI popupEndText;
     public GameObject pauseBtn;
     public GameObject speedText;
 
@@ -19,6 +20,12 @@ public class popupController : MonoBehaviour
     public void ShowPopup(string message, float duration = 3f)
     {
         StartCoroutine(ShowPopupCoroutine(message, duration));
+    }
+
+    public void summaryPopup(string message)
+    {
+        
+        popupEndText.text = message;
     }
 
     IEnumerator ShowPopupCoroutine(string message, float duration)

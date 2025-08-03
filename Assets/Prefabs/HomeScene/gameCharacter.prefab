@@ -1779,7 +1779,6 @@ GameObject:
   - component: {fileID: 3676032024783350351}
   - component: {fileID: 4939415226420450083}
   - component: {fileID: 6647471692921331741}
-  - component: {fileID: 5314227243679401178}
   - component: {fileID: 8299222776206217172}
   m_Layer: 0
   m_Name: Putri_Neutral
@@ -1883,36 +1882,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153c20b787aa54b419e7372c2827ec70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popup: {fileID: 2538884129752138736}
-  dialogue: {fileID: 5326577038312683635}
-  playerInRange: 0
---- !u!54 &5314227243679401178
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8660953579075723361}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 14
-  m_CollisionDetection: 0
+  textboxUI: {fileID: 0}
+  textDisplay: {fileID: 0}
+  messages: []
 --- !u!65 &8299222776206217172
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2083,7 +2055,6 @@ GameObject:
   - component: {fileID: 93753523097986893}
   - component: {fileID: 6407741578872182738}
   - component: {fileID: 4948050397866528329}
-  - component: {fileID: 5312694227634632290}
   - component: {fileID: 1357115935949080341}
   - component: {fileID: 8880605909804164133}
   - component: {fileID: 4431135317088606786}
@@ -2163,29 +2134,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5312694227634632290
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9056935410542565372}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &1357115935949080341
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2227,9 +2175,7 @@ MonoBehaviour:
   playerSpeed: 10
   fastSpeed: 10
   gravity: -9.81
-  jumpHeight: 1.5
   groundCheck: {fileID: 0}
-  groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 0

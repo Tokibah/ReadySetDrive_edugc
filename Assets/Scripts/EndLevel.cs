@@ -25,7 +25,7 @@ public class EndLevel : MonoBehaviour
             {
                 LevelUnlock.UnlockLevel(currentLevel+1);
                 LevelUnlock.SaveLatestLevel(currentLevel + 1);
-                if (currentLevel != 5)
+                if (PlayerPrefs.HasKey("Level_5") == false)
                 {
                     PlayerPrefs.SetInt("UnlockedVideos", videoUnlocks);
                     PlayerPrefs.Save();
