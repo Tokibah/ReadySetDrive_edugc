@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     public GameObject pauseBtn;
     public GameObject endpoints;
     public Text levelCounter;
+    private int levelDisplay;
 
     private bool isPaused;
     private bool allowPause = true;
@@ -119,7 +120,8 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        levelCounter.text = currentLevel.ToString();
+        levelDisplay = currentLevel + 1;
+        levelCounter.text = levelDisplay.ToString();
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (allowPause && !isPaused)

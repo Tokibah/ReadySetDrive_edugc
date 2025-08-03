@@ -53,6 +53,7 @@ public class PointCounter : MonoBehaviour
     {
 
         levelStatus.text = "Berjaya!";
+        popupController.instance.summaryPopup("Bagus, anda berjaya! Awak adalah seorang pemandu yang berhemah!");
         nextLevelBtn.SetActive(true);
         retryBtn.SetActive(false);
 
@@ -66,6 +67,7 @@ public class PointCounter : MonoBehaviour
     public void levelFailed()
     {
         levelStatus.text = "Gagal!";
+        popupController.instance.summaryPopup("Alamak, gagal! Tak mengapa, cuba ulang sekali lagi dan perbaiki pemanduan anda.");
         retryBtn.SetActive(true);
         nextLevelBtn.SetActive(false);
     }
