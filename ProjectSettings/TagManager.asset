@@ -20,6 +20,7 @@ TagManager:
   - StopNode
   - TrafficLightNode
   - YieldNode
+  - Borders
   layers:
   - Default
   - TransparentFX

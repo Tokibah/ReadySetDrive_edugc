@@ -11,11 +11,12 @@ public class LevelManager : MonoBehaviour
     public GameObject summaryUI;
     public GameObject pauseMenu;
     public GameObject pauseBtn;
+    public GameObject endpoints;
     public Text levelCounter;
 
     private bool isPaused;
     private bool allowPause = true;
-    private int currentLevel = 1;
+    public int currentLevel = 1;
 
     private void Awake()
     {
@@ -26,6 +27,12 @@ public class LevelManager : MonoBehaviour
     {
 
             currentLevel = currentLevel + 1;
+
+            if (currentLevel >= levelSpawnPoints.Length)
+        {
+            Debug.Log("No more levels.All levels already unlocked");
+            return;
+        }
             LevelUnlock.UnlockLevel(currentLevel);
             Vector3 spawnPosition = levelSpawnPoints[currentLevel].position;
             player.rotation = levelSpawnPoints[currentLevel].rotation;
@@ -35,7 +42,23 @@ public class LevelManager : MonoBehaviour
             PointCounter.instance.resetPoint();
             PointCounter.instance.nextLevelBtn.SetActive(false);
             summaryUI.SetActive(false);
-            //CheckpointArrow.instance.updateArrow(currentLevel);
+        //CheckpointArrow.instance.updateArrow(currentLevel);
+
+        StartLevel.instance.endpoints.SetActive(currentLevel != 5);
+
+        if (currentLevel == 4)
+        {
+            GameObject[] cones = GameObject.FindGameObjectsWithTag("Cones");
+            foreach (GameObject cone in cones)
+            {
+                cone.SetActive(false);
+            }
+
+            // If you have roadblock colliders, also disable them:
+            endpoints.SetActive(false);
+        }
+
+        
             
             yesPause();
             Debug.Log("Player moved to Level " + (currentLevel + 1));
