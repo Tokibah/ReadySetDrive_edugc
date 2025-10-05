@@ -35,7 +35,15 @@ public class LoadScene : MonoBehaviour
         
         // Start playing the video.
         videoPlayer.Play();
+
+        if (PlayerPrefs.HasKey("HasPlayedBefore"))
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+        }
     }
+
+
 
     // This method is the callback for when the video has finished playing.
     void onVideoEnd(VideoPlayer vp)

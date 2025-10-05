@@ -85,7 +85,10 @@ public class PointCounter : MonoBehaviour
     public void ruleBroken()
     {
         ++broken;
-        --rep;
+        if (PointCounter.instance.collectedRep > 0)
+        {
+            --rep;
+        }
     }
 
     public void resetPoint()

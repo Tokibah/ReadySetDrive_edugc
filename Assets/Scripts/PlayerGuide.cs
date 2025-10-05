@@ -22,15 +22,18 @@ public class PlayerGuide : MonoBehaviour
                 guideTextUI.text = guideSteps[0];
                 isShowing = true;
             }
-            if (SceneManager.GetActiveScene().name == "DCScene")
-            {
-                PlayerPrefs.SetInt("HasPlayedBefore", 1);
-            }
+            //if (SceneManager.GetActiveScene().name == "DCScene")
+            //{
+            //    PlayerPrefs.SetInt("HasPlayedBefore", 1);
+            //}
+            PlayerPrefs.SetInt("HasPlayedBefore", 1);
+            PlayerPrefs.Save();
         }
         else
         {
             isShowing = false;
             guidePanel.SetActive(false);
+            
         }
        
     }

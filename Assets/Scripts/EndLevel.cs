@@ -32,12 +32,22 @@ public class EndLevel : MonoBehaviour
                 }
                 //levelEntrance.SetActive(true);
                 //if (lockUI != null) lockUI.SetActive(false);
+                
+                int initialScore = PlayerPrefs.GetInt("PlayerTotalScore");
+                int ruleCount = PlayerPrefs.GetInt("RulesFollowed");
+                PlayerPrefs.SetInt("PlayerTotalScore",initialScore+PointCounter.instance.collectedRep);
+                PlayerPrefs.SetInt("RulesFollowed", ruleCount + PointCounter.instance.followed);
+                PlayerPrefs.Save();
                 PointCounter.instance.levelSuccess();
             }
             else
             {
                 //levelEntrance.SetActive(false);
                 //if (lockUI != null) lockUI.SetActive(true);
+                
+                int initialScore = PlayerPrefs.GetInt("PlayerTotalScore");
+                PlayerPrefs.SetInt("PlayerTotalScore", initialScore + PointCounter.instance.collectedRep);
+                PlayerPrefs.Save();
                 PointCounter.instance.levelFailed();
             }
 

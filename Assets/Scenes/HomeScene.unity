@@ -13676,7 +13676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &526160804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19209,7 +19209,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 1
-  m_AspectRatio: 1
+  m_AspectRatio: 2
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -20929,7 +20929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &818407260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20942,9 +20942,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cc12398ec4c66458b4f6e43e0552c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guideSteps: []
-  guideTextUI: {fileID: 0}
-  guidePanel: {fileID: 0}
+  guideSteps:
+  - TEst1
+  - Tetse2
+  - 'Teest3
+
+'
+  guideTextUI: {fileID: 838851569}
+  guidePanel: {fileID: 526160803}
 --- !u!4 &818407261
 Transform:
   m_ObjectHideFlags: 0
