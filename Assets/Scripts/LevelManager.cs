@@ -79,6 +79,11 @@ public class LevelManager : MonoBehaviour
         summaryUI.SetActive(false);
         yesPause();
         Debug.Log("Player restarted the level!");
+        if (currentLevel == 4 || currentLevel == 5)
+        {
+            Timer time  = new Timer();
+            time.ResetTimer();
+        }
     }
 
     public void GoHome()

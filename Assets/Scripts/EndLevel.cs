@@ -18,12 +18,13 @@ public class EndLevel : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+       
         
        if (collision.gameObject.CompareTag("Player"))
         {
             if (PointCounter.instance.collectedRep >= requiredScore)
             {
-                LevelUnlock.UnlockLevel(currentLevel+1);
+                LevelUnlock.UnlockLevel(currentLevel + 1);
                 LevelUnlock.SaveLatestLevel(currentLevel + 1);
                 if (PlayerPrefs.HasKey("Level_5") == false)
                 {
@@ -32,23 +33,23 @@ public class EndLevel : MonoBehaviour
                 }
                 //levelEntrance.SetActive(true);
                 //if (lockUI != null) lockUI.SetActive(false);
-                
+
                 int initialScore = PlayerPrefs.GetInt("PlayerTotalScore");
                 int ruleCount = PlayerPrefs.GetInt("RulesFollowed");
-                PlayerPrefs.SetInt("PlayerTotalScore",initialScore+PointCounter.instance.collectedRep);
+                PlayerPrefs.SetInt("PlayerTotalScore", initialScore + PointCounter.instance.collectedRep);
                 PlayerPrefs.SetInt("RulesFollowed", ruleCount + PointCounter.instance.followed);
                 PlayerPrefs.Save();
                 PointCounter.instance.levelSuccess();
+                Debug.Log("Win");
             }
             else
             {
-                //levelEntrance.SetActive(false);
-                //if (lockUI != null) lockUI.SetActive(true);
-                
+
                 int initialScore = PlayerPrefs.GetInt("PlayerTotalScore");
                 PlayerPrefs.SetInt("PlayerTotalScore", initialScore + PointCounter.instance.collectedRep);
                 PlayerPrefs.Save();
                 PointCounter.instance.levelFailed();
+                Debug.Log("Succesfully Failed");
             }
 
 
@@ -67,7 +68,37 @@ public class EndLevel : MonoBehaviour
             LevelManager.instance.noPause();
             PointCounter.instance.levelSummary();
         }
+
+
+       if (PlayerPrefs.GetInt("CurrentPlay") == 4 || PlayerPrefs.GetInt("CurrentPlay") == 5)
+        {
+
+            if (Timer.instance.timeEnd == true && PointCounter.instance.collectedRep < requiredScore)
+            {
+                //levelEntrance.SetActive(false);
+                //if (lockUI != null) lockUI.SetActive(true);
+
+                int initialScore = PlayerPrefs.GetInt("PlayerTotalScore");
+                PlayerPrefs.SetInt("PlayerTotalScore", initialScore + PointCounter.instance.collectedRep);
+                PlayerPrefs.Save();
+                PointCounter.instance.levelFailed();
+                Debug.Log("Succesfully Failed");
+            }
+            else
+            {
+                int initialScore = PlayerPrefs.GetInt("PlayerTotalScore");
+                int ruleCount = PlayerPrefs.GetInt("RulesFollowed");
+                PlayerPrefs.SetInt("PlayerTotalScore", initialScore + PointCounter.instance.collectedRep);
+                PlayerPrefs.SetInt("RulesFollowed", ruleCount + PointCounter.instance.followed);
+                PlayerPrefs.Save();
+                PointCounter.instance.levelSuccess();
+                Debug.Log("Win");
+            }
+        }
+
     }
+
+     
 
     
 }

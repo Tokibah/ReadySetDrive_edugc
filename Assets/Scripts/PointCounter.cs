@@ -44,6 +44,7 @@ public class PointCounter : MonoBehaviour
     public void levelSummary()
     {
         summaryUI.SetActive(true);
+        
         reputation.text = "Reputasi: " + collectedRep.ToString();
         rulesFollowed.text = "Peraturan Diikuti: " + followed.ToString();
         rulesBroken.text = "Peraturan Dilanggar: " + broken.ToString();
@@ -57,11 +58,17 @@ public class PointCounter : MonoBehaviour
         nextLevelBtn.SetActive(true);
         retryBtn.SetActive(false);
 
-        //if (levelCompleted == 4)
-        //{
-        //    nextLevelBtn.SetActive(false);
-        //    retryBtn.SetActive(false);
-        //}
+
+        if (LevelManager.instance.currentLevel == 4)
+        {
+            int initial = PlayerPrefs.GetInt("PlayerTotalScore");
+            PlayerPrefs.SetInt("PlayerTotalScore", initial + PointCounter.instance.collectedRep);
+            nextLevelBtn.SetActive(false);
+            retryBtn.SetActive(false);
+            // set player play status as completed
+            PlayerPrefs.SetInt("Chapter1Completed", 1);
+            PlayerPrefs.Save();
+        }
     }
 
     public void levelFailed()

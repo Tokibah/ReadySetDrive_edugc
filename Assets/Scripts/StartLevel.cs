@@ -13,15 +13,18 @@ public class StartLevel : MonoBehaviour
     public GameObject endpoints;
     private GameObject[] cones;
 
+
     private void Awake()
     {
         instance = this;
         cones = GameObject.FindGameObjectsWithTag("Cones");
+        
     }
     void Start()
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.Confined;
+        PlayerPrefs.SetInt("CurrentPlay", 0);
 
         for (int i = 1; i <= totalLevels; i++)
         {
@@ -85,6 +88,7 @@ public class StartLevel : MonoBehaviour
 
     public void level1()
     {
+        PlayerPrefs.SetInt("CurrentPlay", 1);
         if (player != null && spawnZoneCollider != null)
         {
             Time.timeScale = 1;
@@ -123,6 +127,7 @@ public class StartLevel : MonoBehaviour
 
     public void level2()
     {
+        PlayerPrefs.SetInt("CurrentPlay", 2);
         if (player != null && spawnZoneCollider != null)
         {
             Time.timeScale = 1;
@@ -162,6 +167,7 @@ public class StartLevel : MonoBehaviour
 
     public void level3()
     {
+        PlayerPrefs.SetInt("CurrentPlay", 3);
         if (player != null && spawnZoneCollider != null)
         {
             Time.timeScale = 1;
@@ -201,6 +207,7 @@ public class StartLevel : MonoBehaviour
 
     public void level4()
     {
+        PlayerPrefs.SetInt("CurrentPlay", 4);
         if (player != null && spawnZoneCollider != null)
         {
             Time.timeScale = 1;
@@ -241,6 +248,7 @@ public class StartLevel : MonoBehaviour
 
     public void level5()
     {
+        PlayerPrefs.SetInt("CurrentPlay", 5);
         if (player != null && spawnZoneCollider != null)
         {
             Time.timeScale = 1;
