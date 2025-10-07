@@ -4,11 +4,11 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public static Timer instance;
-    private float time = 60f;
+    private float time = 120f;
     private bool timeStart = false;
     public GameObject timeObject;
     public Text timeText;
-    public static float initTime = 60f;
+    public static float initTime = 120f;
     public bool timeEnd = false;
 
     private void Awake()
@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour
     {
         if (LevelManager.instance.currentLevel == 4 || LevelManager.instance.currentLevel == 5)
         {
-            time = 60f;
+            time = 120f;
             timeStart = false;
             timeEnd = false;
             timeObject.SetActive(false);
